@@ -803,6 +803,14 @@ main(int argc, char **argv)
 			exit(1);
 		}
 	}
+#else
+	if (uart_in_path) {
+		printf("Using %s!\n", uart_in_path);
+	}
+
+	if (uart_out_path) {
+		printf("Using: %s!\n", uart_out_path);
+	}
 #endif
 	
 	prg_override_start = -1;
