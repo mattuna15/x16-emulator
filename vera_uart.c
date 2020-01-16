@@ -8,7 +8,6 @@
 #if SOCKETS
 #include "SocketClient.h"
 #include "UartQueue.h"
-
 #endif
 #define BITS_PER_BYTE 9 /* 8N1 is 9 bits */
 #define SPEED_RATIO (25.0/MHZ) /* VERA runs at 25 MHz */

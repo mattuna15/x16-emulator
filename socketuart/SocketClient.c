@@ -59,7 +59,7 @@ void *processmessages(void *vargp)  {
 
 		if (get_outgoing_queue_length() > 0) {
 			uint8_t value = get_outgoing_value();
-			ssize_t bytes_written = socket_write(value);
+			size_t bytes_written = socket_write(value);
 			if (bytes_written <= 0) {
 				insert_outgoing_value(value);
 			}
@@ -73,16 +73,16 @@ void *processmessages(void *vargp)  {
 }
 
 
-ssize_t socket_write(uint8_t in_value) {
+size_t socket_write(uint8_t in_value) {
 
-	ssize_t bytes_sent =  send(sockfd, &in_value, sizeof(in_value), 0);
+	size_t bytes_sent =  send(sockfd, &in_value, sizeof(in_value), 0);
 	return bytes_sent;
 }
 
 uint8_t socket_read(void) {
 
 	char reply_message[1];
-	ssize_t bytes_recv = recv(sockfd, reply_message, 1, 0);
+	size_t bytes_recv = recv(sockfd, reply_message, 1, 0);
 
 	if (bytes_recv <= 0) {
 		return bytes_recv;
