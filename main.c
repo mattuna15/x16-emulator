@@ -453,8 +453,8 @@ main(int argc, char **argv)
 	bool run_test = false;
 	int test_number = 0;
 
-	char *uart_in_path = NULL;
-	char *uart_out_path = NULL;
+	char *uart_in_path;
+	char *uart_out_path;
 
 	run_after_load = false;
 
