@@ -10,8 +10,8 @@ else
 	SDL2CONFIG=sdl2-config
 endif
 
-CFLAGS=-std=c99 -O3 -Wall -Werror -g $(shell $(SDL2CONFIG) --cflags) -Iextern/include -Iextern/src -Isocketuart
-LDFLAGS=$(shell $(SDL2CONFIG) --libs) -lm
+CFLAGS=-std=c99 -O3 -Wall -Werror -g $(shell $(SDL2CONFIG) --cflags) -Iextern/include -Iextern/src -Isocketuart -pthread 
+LDFLAGS=$(shell $(SDL2CONFIG) --libs) -lm -pthread 
 
 OUTPUT=x16emu
 
