@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include "glue.h"
 #if SOCKETS
-#import "SocketClient.h"
+#include "SocketClient.h"
 #include "UartQueue.h"
 
 #endif
