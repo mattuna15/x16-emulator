@@ -5,10 +5,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "glue.h"
-#if SOCKETS
-#include "SocketClient.h"
-#include "UartQueue.h"
+#ifdef WITH_SOCKETS
+#include "socketclient.h"
+#include "uartqueue.h"
 #endif
+
 #define BITS_PER_BYTE 9 /* 8N1 is 9 bits */
 #define SPEED_RATIO (25.0/MHZ) /* VERA runs at 25 MHz */
 
@@ -30,7 +31,7 @@ static bool
 data_available()
 {
 
-#if SOCKETS
+#ifdef WITH_SOCKETS
 	return true;
 	//return get_queue_length() > 0;
 #else
@@ -51,7 +52,7 @@ static void
 cache_next_char()
 {
 
-#if SOCKETS
+#ifdef WITH_SOCKETS
 	byte_in = get_incoming_value();
 #else
 	if (uart_in_file) {
@@ -69,9 +70,8 @@ vera_uart_init()
 	countdown_out = 0;
 	countdown_in = 0;
 
-#if SOCKETS
-	const char hostname[20] = "127.0.0.1";
-	socket_connect(hostname, 9007);
+#ifdef WITH_SOCKETS
+	socket_connect();
 #endif
 
 	cache_next_char();
@@ -116,7 +116,7 @@ vera_uart_read(uint8_t reg)
 void
 vera_uart_write(uint8_t reg, uint8_t value)
 {
-#if SOCKETS
+#ifdef WITH_SOCKETS
 	//socket_write(value);
 	insert_outgoing_value(value);
 	countdown_out = bauddiv * BITS_PER_BYTE;

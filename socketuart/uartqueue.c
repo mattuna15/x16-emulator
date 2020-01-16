@@ -1,13 +1,14 @@
 //
-//  UartQueue.c
+//  uartqueue.c
 //  CommanderX16
 //
 //  Created by Pearce, Matthew (Senior Developer) on 16/01/2020.
 //
 
-#include "UartQueue.h"
+#include "uartqueue.h"
 
-# define MAX_ITEMS 1024
+# define MAX_ITEMS 2048
+
 uint8_t c_incoming_queue_arr[MAX_ITEMS];
 uint8_t c_outgoing_queue_arr[MAX_ITEMS];
 int incoming_front = -1;

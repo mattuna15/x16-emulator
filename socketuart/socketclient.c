@@ -1,10 +1,10 @@
 //
-//  SocketClient.c
+//  socketclient.c
 //  CommanderX16
 //
 //	; (C)2020 Matthew Pearce, License: 2-clause BSD//
 
-#include "SocketClient.h"
+#include "socketclient.h"
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -12,9 +12,9 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <pthread.h>
-#include "UartQueue.h"
+#include "uartqueue.h"
 #include <string.h>
-#include<arpa/inet.h>	//inet_addr
+#include <arpa/inet.h>	//inet_addr
 
 char *convert_char(uint8_t *a);
 int sockfd;
@@ -22,16 +22,18 @@ int connected;
 
 void *processmessages(void *vargp) ;
 
-void socket_connect(const char *hostAddress, int portno)
-{
-	//struct hostent *he;
-	struct sockaddr_in their_addr; /* connector's address information */
+char *ip_address = "127.0.0.1";
+int port = 80;
+
+void socket_connect() {
+
+	struct sockaddr_in their_addr;
 
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
-	their_addr.sin_family = AF_INET;      /* host byte order */
-	their_addr.sin_port = htons(portno);    /* short, network byte order */
-	their_addr.sin_addr.s_addr = inet_addr(hostAddress);
+	their_addr.sin_family = AF_INET;
+	their_addr.sin_port = htons(port);
+	their_addr.sin_addr.s_addr = inet_addr(ip_address);
 
 	int optval = 1;
 	setsockopt(sockfd, SOL_SOCKET, SO_KEEPALIVE, &optval, sizeof(optval));
@@ -58,9 +60,7 @@ void *processmessages(void *vargp)  {
 		} else {
 			insert_incoming_value(socket_read());
 		}
-
 	}
-
 }
 
 
@@ -81,5 +81,4 @@ uint8_t socket_read(void) {
 		uint8_t value = (uint8_t) reply_message[0];
 		return value;
 	}
-
 }

@@ -4,7 +4,7 @@
 
 #define _XOPEN_SOURCE	600
 #define _POSIX_C_SOURCE 1
-#define SOCKETS 1
+
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -346,12 +346,18 @@ usage()
 	printf("\tChoose what type of joystick to use, e.g. -joy2 SNES\n");
 #ifdef WITH_YM2151
 	printf("-sound <output device>\n");
-	printf("\tSet the output device used for audio emulation");
+	printf("\tSet the output device used for audio emulation\n");
 #endif
 #ifdef TRACE
 	printf("-trace [<address>]\n");
 	printf("\tPrint instruction trace. Optionally, a trigger address\n");
 	printf("\tcan be specified.\n");
+#endif
+#ifdef WITH_SOCKETS
+	printf("-ipaddress [<address>]\n");
+	printf("\tSpecify an ip address to connect UART to\n");
+	printf("-port [<port>]\n");
+	printf("\tSpecify a port number to connect UART to\n");
 #endif
 	printf("\n");
 	exit(1);
@@ -765,6 +771,27 @@ main(int argc, char **argv)
 			argc--;
 			argv++;
 		}
+#ifdef WITH_SOCKETS
+		else if (!strcmp(argv[0], "-ipaddress")) {
+			argc--;
+			argv++;
+			if (!argc || argv[0][0] == '-') {
+				usage();
+			}
+			ip_address = argv[0];
+			argc--;
+			argv++;
+		} else if (!strcmp(argv[0], "-port")) {
+			argc--;
+			argv++;
+			if (!argc || argv[0][0] == '-') {
+				usage();
+			}
+			port = atoi(argv[0]);
+			argc--;
+			argv++;
+		}
+#endif
 		else {
 			usage();
 		}

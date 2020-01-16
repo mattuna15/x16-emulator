@@ -1,12 +1,12 @@
 //
-//  UartQueue.h
+//  uartqueue.h
 //  CommanderX16
 //
 //  Created by Pearce, Matthew (Senior Developer) on 16/01/2020.
 //
 
-#ifndef UartQueue_h
-#define UartQueue_h
+#ifndef uartqueue_h
+#define uartqueue_h
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -19,4 +19,4 @@ bool insert_outgoing_value(uint8_t item);
 uint8_t get_incoming_value(void);
 bool insert_incoming_value(uint8_t item);
 
-#endif /* UartQueue_h */
+#endif /* uartqueue_h */

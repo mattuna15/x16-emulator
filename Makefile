@@ -4,14 +4,17 @@ MINGW32=/usr/local/Cellar/mingw-w64/6.0.0_2/toolchain-i686/i686-w64-mingw32
 # the Windows SDL2 path on macOS installed through ./configure --prefix=... && make && make install
 WIN_SDL2=~/tmp/sdl2-win32
 
+WITH_SOCKETS=1
+WITH_YM2151=1
+
 ifeq ($(CROSS_COMPILE_WINDOWS),1)
 	SDL2CONFIG=$(WIN_SDL2)/bin/sdl2-config
 else
 	SDL2CONFIG=sdl2-config
 endif
 
-CFLAGS=-std=c99 -O3 -Wall -Werror -g $(shell $(SDL2CONFIG) --cflags) -Iextern/include -Iextern/src -Isocketuart -pthread 
-LDFLAGS=$(shell $(SDL2CONFIG) --libs) -lm -pthread 
+CFLAGS=-std=c99 -O3 -Wall -Werror -g $(shell $(SDL2CONFIG) --cflags) -Iextern/include -Iextern/src
+LDFLAGS=$(shell $(SDL2CONFIG) --libs) -lm  
 
 OUTPUT=x16emu
 
@@ -34,14 +37,21 @@ ifdef EMSCRIPTEN
 	OUTPUT=x16emu.html
 endif
 
-OBJS = cpu/fake6502.o memory.o disasm.o video.o ps2.o via.o loadsave.o spi.o vera_uart.o vera_spi.o sdcard.o main.o debugger.o joystick.o rendertext.o keyboard.o socketuart/UartQueue.o socketuart/SocketClient.o 
+OBJS = cpu/fake6502.o memory.o disasm.o video.o ps2.o via.o loadsave.o spi.o vera_uart.o vera_spi.o sdcard.o main.o debugger.o joystick.o rendertext.o keyboard.o
 
-HEADERS = disasm.h cpu/fake6502.h glue.h memory.h video.h ps2.h via.h loadsave.h joystick.h keyboard.h socketuart/UartQueue.h socketuart/SocketClient.h
+HEADERS = disasm.h cpu/fake6502.h glue.h memory.h video.h ps2.h via.h loadsave.h joystick.h keyboard.h
 
 ifeq ($(WITH_YM2151),1)
 OBJS += extern/src/ym2151.o
 HEADERS += extern/src/ym2151.h
 CFLAGS += -DWITH_YM2151
+endif
+
+ifeq ($(WITH_SOCKETS),1)
+OBJS += socketuart/uartqueue.o socketuart/socketclient.o 
+HEADERS += socketuart/uartqueue.h socketuart/Socketclient.h
+CFLAGS += -DWITH_SOCKETS -Isocketuart -pthread
+LDFLAGS += -pthread
 endif
 
 ifneq ("$(wildcard ./rom_labels.h)","")
@@ -141,4 +151,4 @@ package_linux:
 	rm -rf $(TMPDIR_NAME)
 
 clean:
-	rm -f *.o cpu/*.o extern/src/*.o x16emu x16emu.exe x16emu.js x16emu.wasm x16emu.data x16emu.worker.js x16emu.html x16emu.html.mem
+	rm -f *.o cpu/*.o extern/src/*.o socketuart/*.o x16emu x16emu.exe x16emu.js x16emu.wasm x16emu.data x16emu.worker.js x16emu.html x16emu.html.mem

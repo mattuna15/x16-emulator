@@ -52,16 +52,16 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-sound &quot;Built-in Output&quot;"
+            argument = "-ipaddress &quot;127.0.0.1&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-uart-in socket"
-            isEnabled = "NO">
+            argument = "-port 9007"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-uart-out socket"
-            isEnabled = "NO">
+            argument = "-sound &quot;Built-in Output&quot;"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-rom $BUILT_PRODUCTS_DIR/rom.bin"
