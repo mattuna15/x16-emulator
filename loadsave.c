@@ -9,10 +9,8 @@
 #include <dirent.h>
 #include <unistd.h>
 #include "glue.h"
-#if __APPLE__
-#include <TargetConditionals.h>
+
 #include "memory.h"
-#endif
 #include "video.h"
 #include "rom_symbols.h"
 

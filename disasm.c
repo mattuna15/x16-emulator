@@ -7,9 +7,7 @@
 #include <inttypes.h>
 #include <string.h>
 #include "glue.h"
-#if __APPLE__
 #include "memory.h"
-#endif
 #include "cpu/mnemonics.h"				// Automatically generated mnemonic table.
 
 // *******************************************************************************************

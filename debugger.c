@@ -16,10 +16,8 @@
 
 #include "glue.h"
 #include "disasm.h"
-#if __APPLE__
-#include <TargetConditionals.h>
 #include "memory.h"
-#endif
+
 #include "video.h"
 #include "cpu/fake6502.h"
 #include "debugger.h"
