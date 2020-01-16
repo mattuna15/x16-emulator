@@ -14,12 +14,8 @@
 #include <pthread.h>
 #include "UartQueue.h"
 #include <string.h>
+#include<arpa/inet.h>	//inet_addr
 
-//// void bzero(void *s, size_t n);
-//#define bzero(s, n) memset((s), 0, (n))
-//
-//// void bcopy(const void *s1, void *s2, size_t n);
-//#define bcopy(s1, s2, n) memmove((s2), (s1), (n))
 char *convert_char(uint8_t *a);
 int sockfd;
 int connected;
@@ -28,17 +24,14 @@ void *processmessages(void *vargp) ;
 
 void socket_connect(const char *hostAddress, int portno)
 {
-	struct hostent *he;
+	//struct hostent *he;
 	struct sockaddr_in their_addr; /* connector's address information */
-
-	he=gethostbyname(hostAddress);
 
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
 	their_addr.sin_family = AF_INET;      /* host byte order */
 	their_addr.sin_port = htons(portno);    /* short, network byte order */
-	their_addr.sin_addr = *((struct in_addr *)he->h_addr);
-	bzero(&(their_addr.sin_zero), 8);     /* zero the rest of the struct */
+	their_addr.sin_addr.s_addr = inet_addr(hostAddress);
 
 	int optval = 1;
 	setsockopt(sockfd, SOL_SOCKET, SO_KEEPALIVE, &optval, sizeof(optval));
@@ -51,7 +44,6 @@ void socket_connect(const char *hostAddress, int portno)
 	}
 
 }
-
 
 void *processmessages(void *vargp)  {
 
@@ -67,7 +59,6 @@ void *processmessages(void *vargp)  {
 			insert_incoming_value(socket_read());
 		}
 
-		usleep(4);
 	}
 
 }

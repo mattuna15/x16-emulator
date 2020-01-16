@@ -70,7 +70,7 @@ vera_uart_init()
 	countdown_in = 0;
 
 #if SOCKETS
-	const char hostname[20] = "localhost";
+	const char hostname[20] = "127.0.0.1";
 	socket_connect(hostname, 9007);
 #endif
 

@@ -456,6 +456,9 @@ main(int argc, char **argv)
 #if !SOCKETS
 	char *uart_in_path = NULL;
 	char *uart_out_path = NULL;
+#else
+	char *uart_in_path = "socket";
+	char *uart_out_path = "socket";
 #endif
 
 	run_after_load = false;
@@ -743,7 +746,6 @@ main(int argc, char **argv)
 			argv++;
 #endif
 		}
-#if !SOCKETS
 		else if (!strcmp(argv[0], "-uart-in")) {
 			argc--;
 			argv++;
@@ -763,7 +765,6 @@ main(int argc, char **argv)
 			argc--;
 			argv++;
 		}
-#endif
 		else {
 			usage();
 		}
