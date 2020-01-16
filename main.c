@@ -453,8 +453,10 @@ main(int argc, char **argv)
 	bool run_test = false;
 	int test_number = 0;
 
-	char *uart_in_path;
-	char *uart_out_path;
+#if !SOCKETS
+	char *uart_in_path = NULL;
+	char *uart_out_path = NULL;
+#endif
 
 	run_after_load = false;
 
@@ -740,7 +742,9 @@ main(int argc, char **argv)
 			argc--;
 			argv++;
 #endif
-		} else if (!strcmp(argv[0], "-uart-in")) {
+		}
+#if !SOCKETS
+		else if (!strcmp(argv[0], "-uart-in")) {
 			argc--;
 			argv++;
 			if (!argc || argv[0][0] == '-') {
@@ -758,7 +762,9 @@ main(int argc, char **argv)
 			uart_out_path = argv[0];
 			argc--;
 			argv++;
-		} else {
+		}
+#endif
+		else {
 			usage();
 		}
 	}
