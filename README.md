@@ -1,3 +1,7 @@
+** PROVIDES A SOCKET INTERFACE ON PORT 9007 FOR SEND AND RECEIVE **
+** nc -l 9007 to communicate **
+** Use GET# and PRINT# on device 2 for it to work **
+
 <p align="center">
   <img src="./.gh/logo.png" />
 </p>
