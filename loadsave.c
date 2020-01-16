@@ -11,16 +11,10 @@
 #include "glue.h"
 #if __APPLE__
 #include <TargetConditionals.h>
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #include "memory.h"
-#endif
 #endif
 #include "video.h"
 #include "rom_symbols.h"
-
-#if __APPLE__
-#include <TargetConditionals.h>
-#endif
 
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))

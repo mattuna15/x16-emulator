@@ -1,11 +1,15 @@
 // Commander X16 Emulator
 // Copyright (c) 2019 Michael Steil
 // All rights reserved. License: 2-clause BSD
-
+#define SOCKETS 1
 #include <stdio.h>
 #include <stdbool.h>
 #include "glue.h"
+#if SOCKETS
+#import "SocketClient.h"
+#include "UartQueue.h"
 
+#endif
 #define BITS_PER_BYTE 9 /* 8N1 is 9 bits */
 #define SPEED_RATIO (25.0/MHZ) /* VERA runs at 25 MHz */
 
@@ -26,6 +30,11 @@ txbusy()
 static bool
 data_available()
 {
+
+#if SOCKETS
+	return true;
+	//return get_queue_length() > 0;
+#else
 	if (countdown_in > 0) {
 		return false;
 	}
@@ -36,14 +45,21 @@ data_available()
 		return false;
 	}
 	return true;
+#endif
 }
 
 static void
 cache_next_char()
 {
+
+#if SOCKETS
+	byte_in = get_incoming_value();
+#else
 	if (uart_in_file) {
 		byte_in = fgetc(uart_in_file);
 	}
+#endif
+
 }
 
 void
@@ -53,6 +69,11 @@ vera_uart_init()
 	bauddiv = 24; // 1 MHz
 	countdown_out = 0;
 	countdown_in = 0;
+
+#if SOCKETS
+	const char hostname[20] = "localhost";
+	socket_connect(hostname, 9007);
+#endif
 
 	cache_next_char();
 }
@@ -96,12 +117,19 @@ vera_uart_read(uint8_t reg)
 void
 vera_uart_write(uint8_t reg, uint8_t value)
 {
+#if SOCKETS
+	//socket_write(value);
+	insert_outgoing_value(value);
+	countdown_out = bauddiv * BITS_PER_BYTE;
+#else
+
 	switch (reg) {
 		case 0:
 			if (txbusy()) {
 				printf("UART WRITTEN WHILE BUSY!! $%02x\n", value);
 			} else {
 				//printf("UART write: $%02x\n", value);
+
 				if (uart_out_file) {
 					fputc(value, uart_out_file);
 				}
@@ -117,4 +145,5 @@ vera_uart_write(uint8_t reg, uint8_t value)
 			bauddiv = (bauddiv & 0xff) | (value << 8);
 			break;
 	}
+#endif
 }

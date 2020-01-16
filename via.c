@@ -12,9 +12,9 @@
 #include "joystick.h"
 #if __APPLE__
 #include <TargetConditionals.h>
+#include "memory.h"
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #include "ios_functions.h"
-#include "memory.h"
 #endif
 #endif
 

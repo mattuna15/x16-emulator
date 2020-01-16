@@ -16,7 +16,7 @@
 #include <objc/runtime.h>
 #include <objc/message.h>
 #import <UIKit/UIKit.h>
-#include "SDL.h"
+#include <SDL.h>
 #include "SDL_uikitappdelegate.h"
 
 #import "MessageObserver.h"

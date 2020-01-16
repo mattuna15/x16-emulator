@@ -4,7 +4,7 @@
 
 #define _XOPEN_SOURCE	600
 #define _POSIX_C_SOURCE 1
-
+#define SOCKETS 1
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -26,7 +26,7 @@
 #include "sdcard.h"
 #include "loadsave.h"
 #include "glue.h"
-//#include "memory.h"
+#include "memory.h"
 #include "debugger.h"
 #include "utf8.h"
 #include "joystick.h"
@@ -781,6 +781,7 @@ main(int argc, char **argv)
 		}
 	}
 
+#if !SOCKETS
 	if (uart_in_path) {
 		uart_in_file = fopen(uart_in_path, "r");
 		if (!uart_in_file) {
@@ -796,7 +797,8 @@ main(int argc, char **argv)
 			exit(1);
 		}
 	}
-
+#endif
+	
 	prg_override_start = -1;
 	if (prg_path) {
 		char *comma = strchr(prg_path, ',');

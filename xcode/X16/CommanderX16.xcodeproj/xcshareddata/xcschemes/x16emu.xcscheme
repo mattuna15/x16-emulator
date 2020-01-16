@@ -56,6 +56,14 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "-uart-in socket"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-uart-out socket"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-rom $BUILT_PRODUCTS_DIR/rom.bin"
             isEnabled = "YES">
          </CommandLineArgument>

@@ -8,10 +8,7 @@
 #include <string.h>
 #include "glue.h"
 #if __APPLE__
-#include <TargetConditionals.h>
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #include "memory.h"
-#endif
 #endif
 #include "cpu/mnemonics.h"				// Automatically generated mnemonic table.
 

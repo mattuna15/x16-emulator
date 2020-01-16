@@ -83,6 +83,10 @@
 		A1C5FAC823BCC71600897B0F /* keyboard.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FAA723BCC71600897B0F /* keyboard.c */; };
 		A1C5FACC23BCC78B00897B0F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FACB23BCC78A00897B0F /* main.c */; };
 		A1D09D6223C1D463009373CD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1D09D6123C1D463009373CD /* Images.xcassets */; };
+		A1D2019623D098A7006CD799 /* UartQueue.c in Sources */ = {isa = PBXBuildFile; fileRef = A1D2019323D098A7006CD799 /* UartQueue.c */; };
+		A1D2019723D098A7006CD799 /* UartQueue.c in Sources */ = {isa = PBXBuildFile; fileRef = A1D2019323D098A7006CD799 /* UartQueue.c */; };
+		A1D2019823D098A7006CD799 /* SocketClient.c in Sources */ = {isa = PBXBuildFile; fileRef = A1D2019423D098A7006CD799 /* SocketClient.c */; };
+		A1D2019923D098A7006CD799 /* SocketClient.c in Sources */ = {isa = PBXBuildFile; fileRef = A1D2019423D098A7006CD799 /* SocketClient.c */; };
 		FA8B4B97196703B400F8EB7C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8B4B96196703B400F8EB7C /* CoreMotion.framework */; };
 		FAE0E9651BAF967F0098DFA4 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE0E9641BAF967F0098DFA4 /* GameController.framework */; };
 		FD77A0850E26BDB800F39101 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD77A0840E26BDB800F39101 /* AudioToolbox.framework */; };
@@ -236,7 +240,6 @@
 		A1279FF923C4FFFC00CA3665 /* CommanderX16-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CommanderX16-Bridging-Header.h"; sourceTree = "<group>"; };
 		A127A00723C5DA0500CA3665 /* JoystickController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickController.swift; sourceTree = "<group>"; };
 		A143C95823CF03B200B85C02 /* x16emu */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = x16emu; sourceTree = BUILT_PRODUCTS_DIR; };
-		A143C95A23CF03B200B85C02 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		A143C96A23CF050600B85C02 /* SDL-Mac.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "SDL-Mac.xcodeproj"; path = "../Frameworks/SDL/Xcode/SDL/SDL-Mac.xcodeproj"; sourceTree = "<group>"; };
 		A143C98723CF059B00B85C02 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		A143C98823CF059B00B85C02 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -317,6 +320,10 @@
 		A1C5FAA723BCC71600897B0F /* keyboard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = keyboard.c; path = ../../keyboard.c; sourceTree = "<group>"; };
 		A1C5FACB23BCC78A00897B0F /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../../main.c; sourceTree = "<group>"; };
 		A1D09D6123C1D463009373CD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CommanderX16/Images.xcassets; sourceTree = "<group>"; };
+		A1D2019223D098A7006CD799 /* SocketClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketClient.h; sourceTree = "<group>"; };
+		A1D2019323D098A7006CD799 /* UartQueue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = UartQueue.c; sourceTree = "<group>"; };
+		A1D2019423D098A7006CD799 /* SocketClient.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SocketClient.c; sourceTree = "<group>"; };
+		A1D2019523D098A7006CD799 /* UartQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UartQueue.h; sourceTree = "<group>"; };
 		FA8B4B96196703B400F8EB7C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		FAE0E9641BAF967F0098DFA4 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		FD779EDD0E26BA1200F39101 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -383,7 +390,6 @@
 			isa = PBXGroup;
 			children = (
 				A190E77E23CC74C000328EB6 /* README.md */,
-				A143C95923CF03B200B85C02 /* x16emu */,
 				A162BDD523C4ED7A00796247 /* Frameworks */,
 				29B97315FDCFA39411CA2CEA /* Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -434,6 +440,7 @@
 				A1C5FA9D23BCC71500897B0F /* video.c */,
 				A1C5FA9423BCC71500897B0F /* video.h */,
 				A1C5FACB23BCC78A00897B0F /* main.c */,
+				A1D2019123D098A7006CD799 /* socketuart */,
 				A1C5FA9723BCC71500897B0F /* webassembly */,
 			);
 			name = Sources;
@@ -487,14 +494,6 @@
 				A127A02823C5EA5600CA3665 /* libSDLmain.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		A143C95923CF03B200B85C02 /* x16emu */ = {
-			isa = PBXGroup;
-			children = (
-				A143C95A23CF03B200B85C02 /* main.c */,
-			);
-			path = x16emu;
 			sourceTree = "<group>";
 		};
 		A143C96923CF046C00B85C02 /* Mac */ = {
@@ -619,6 +618,18 @@
 			);
 			name = webassembly;
 			path = ../../webassembly;
+			sourceTree = "<group>";
+		};
+		A1D2019123D098A7006CD799 /* socketuart */ = {
+			isa = PBXGroup;
+			children = (
+				A1D2019223D098A7006CD799 /* SocketClient.h */,
+				A1D2019323D098A7006CD799 /* UartQueue.c */,
+				A1D2019423D098A7006CD799 /* SocketClient.c */,
+				A1D2019523D098A7006CD799 /* UartQueue.h */,
+			);
+			name = socketuart;
+			path = ../../socketuart;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -835,7 +846,9 @@
 				A1A7949B23BF8D7000D813EF /* GameControlViewController.m in Sources */,
 				A1C5FAC423BCC71600897B0F /* memory.c in Sources */,
 				A1C5FAC823BCC71600897B0F /* keyboard.c in Sources */,
+				A1D2019823D098A7006CD799 /* SocketClient.c in Sources */,
 				A1C5FAB923BCC71600897B0F /* via.c in Sources */,
+				A1D2019623D098A7006CD799 /* UartQueue.c in Sources */,
 				A19B6B9F23BCFFB600797D89 /* InputViewController.m in Sources */,
 				A1C5FAAF23BCC71600897B0F /* rendertext.c in Sources */,
 				A1C5FAC323BCC71600897B0F /* video.c in Sources */,
@@ -860,6 +873,7 @@
 				A143C9B423CF064E00B85C02 /* main.c in Sources */,
 				A143C9AA23CF064E00B85C02 /* loadsave.c in Sources */,
 				A143C9B123CF064E00B85C02 /* vera_uart.c in Sources */,
+				A1D2019923D098A7006CD799 /* SocketClient.c in Sources */,
 				A143C9AF23CF064E00B85C02 /* spi.c in Sources */,
 				A143C9AB23CF064E00B85C02 /* memory.c in Sources */,
 				A143C9A423CF064200B85C02 /* fake6502.c in Sources */,
@@ -867,6 +881,7 @@
 				A143C9A823CF064E00B85C02 /* joystick.c in Sources */,
 				A143C9B223CF064E00B85C02 /* via.c in Sources */,
 				A143C9A923CF064E00B85C02 /* keyboard.c in Sources */,
+				A1D2019723D098A7006CD799 /* UartQueue.c in Sources */,
 				A143C9AE23CF064E00B85C02 /* sdcard.c in Sources */,
 				A143C9A523CF064700B85C02 /* disasm.c in Sources */,
 				A143C9B323CF064E00B85C02 /* video.c in Sources */,

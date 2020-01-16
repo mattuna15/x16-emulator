@@ -10,7 +10,7 @@ else
 	SDL2CONFIG=sdl2-config
 endif
 
-CFLAGS=-std=c99 -O3 -Wall -Werror -g $(shell $(SDL2CONFIG) --cflags) -Iextern/include -Iextern/src
+CFLAGS=-std=c99 -O3 -Wall -Werror -g $(shell $(SDL2CONFIG) --cflags) -Iextern/include -Iextern/src -Isocketuart
 LDFLAGS=$(shell $(SDL2CONFIG) --libs) -lm
 
 OUTPUT=x16emu
@@ -34,9 +34,9 @@ ifdef EMSCRIPTEN
 	OUTPUT=x16emu.html
 endif
 
-OBJS = cpu/fake6502.o memory.o disasm.o video.o ps2.o via.o loadsave.o spi.o vera_uart.o vera_spi.o sdcard.o main.o debugger.o javascript_interface.o joystick.o rendertext.o keyboard.o
+OBJS = cpu/fake6502.o memory.o disasm.o video.o ps2.o via.o loadsave.o spi.o vera_uart.o vera_spi.o sdcard.o main.o debugger.o joystick.o rendertext.o keyboard.o socketuart/UartQueue.o socketuart/SocketClient.o 
 
-HEADERS = disasm.h cpu/fake6502.h glue.h memory.h video.h ps2.h via.h loadsave.h joystick.h keyboard.h
+HEADERS = disasm.h cpu/fake6502.h glue.h memory.h video.h ps2.h via.h loadsave.h joystick.h keyboard.h socketuart/UartQueue.h socketuart/SocketClient.h
 
 ifeq ($(WITH_YM2151),1)
 OBJS += extern/src/ym2151.o
