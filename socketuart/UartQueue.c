@@ -7,7 +7,6 @@
 
 #include "UartQueue.h"
 
-
 # define MAX_ITEMS 1024
 uint8_t c_incoming_queue_arr[MAX_ITEMS];
 uint8_t c_outgoing_queue_arr[MAX_ITEMS];
@@ -19,7 +18,9 @@ int outgoing_rear = -1;
 int get_outgoing_queue_length(void) {
 
 	if(outgoing_front == -1) {
-		printf("Queue is empty");
+#ifdef TRACE
+		printf("Queue is empty\n");
+#endif
 		return 0;
 	}
 
@@ -30,7 +31,9 @@ int get_outgoing_queue_length(void) {
 int get_incoming_queue_length() {
 
 	if(incoming_front == -1) {
-		printf("Queue is empty");
+#ifdef TRACE
+		printf("Queue is empty\n");
+#endif
 		return 0;
 	}
 
@@ -41,7 +44,9 @@ int get_incoming_queue_length() {
 bool insert_outgoing_value(uint8_t item)
 {
 	if ((outgoing_front == 0 && outgoing_rear == MAX_ITEMS - 1) || (outgoing_front == outgoing_rear + 1)) {
-		printf("Queue Overflow");
+#ifdef TRACE
+		printf("Queue Overflow\n");
+#endif
 		return false;
 	}
 
@@ -57,15 +62,18 @@ bool insert_outgoing_value(uint8_t item)
 		}
 	}
 	c_outgoing_queue_arr[outgoing_rear] = item ;
-	printf("Element inserted to queue is : %d",c_outgoing_queue_arr[outgoing_rear]);
-
+#ifdef TRACE
+	printf("Element inserted to queue is : %d\n",c_outgoing_queue_arr[outgoing_rear]);
+#endif
 	return true;
 }
 
 bool insert_incoming_value(uint8_t item)
 {
 	if ((incoming_front == 0 && incoming_rear == MAX_ITEMS - 1) || (incoming_front == incoming_rear + 1)) {
-		printf("Queue Overflow");
+#ifdef TRACE
+		printf("Queue Overflow\n");]
+#endif
 		return false;
 	}
 
@@ -81,18 +89,25 @@ bool insert_incoming_value(uint8_t item)
 		}
 	}
 	c_incoming_queue_arr[incoming_rear] = item ;
-	printf("Element inserted to queue is : %d",c_incoming_queue_arr[incoming_rear]);
-
+#ifdef TRACE
+	printf("Element inserted to queue is : %d\n",c_incoming_queue_arr[incoming_rear]);
+#endif
 	return true;
 }
 
 void incoming_deletion()
 {
 	if(incoming_front == -1) {
-		printf("Queue Underflown");
+#ifdef TRACE
+		printf("Queue Underflown\n");
+#endif
 		return ;
 	}
-	printf("Element deleted from queue is : %d",c_incoming_queue_arr[incoming_front]);
+
+#ifdef TRACE
+	printf("Element deleted from queue is : %d\n",c_incoming_queue_arr[incoming_front]);
+#endif
+
 	if(incoming_front == incoming_rear) {
 		incoming_front = -1;
 		incoming_rear=-1;
@@ -108,10 +123,14 @@ void incoming_deletion()
 void outgoing_deletion()
 {
 	if(outgoing_front == -1) {
-		printf("Queue Underflown");
+#ifdef TRACE
+		printf("Queue Underflown\n");
+#endif
 		return ;
 	}
-	printf("Element deleted from queue is : %d",c_outgoing_queue_arr[outgoing_front]);
+#ifdef TRACE
+	printf("Element deleted from queue is : %d\n",c_outgoing_queue_arr[outgoing_front]);
+#endif
 	if(outgoing_front == outgoing_rear) {
 		outgoing_front = -1;
 		outgoing_rear=-1;
@@ -127,7 +146,9 @@ void outgoing_deletion()
 uint8_t get_incoming_value()
 {
 	if(incoming_front == -1) {
-		printf("Queue is empty");
+#ifdef TRACE
+		printf("Queue is empty\n");
+#endif
 		return 0;
 	}
 
@@ -139,7 +160,9 @@ uint8_t get_incoming_value()
 uint8_t get_outgoing_value()
 {
 	if(outgoing_front == -1) {
-		printf("Queue is empty");
+#ifdef TRACE
+		printf("Queue is empty\n");
+#endif
 		return 0;
 	}
 
