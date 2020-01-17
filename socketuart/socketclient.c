@@ -35,8 +35,11 @@ void socket_connect() {
 	their_addr.sin_port = htons(port);
 	their_addr.sin_addr.s_addr = inet_addr(ip_address);
 
-	int optval = 1;
-	setsockopt(sockfd, SOL_SOCKET, SO_KEEPALIVE, &optval, sizeof(optval));
+	struct timeval timeout;
+    timeout.tv_sec = 1;
+    timeout.tv_usec = 0;
+	setsockopt (sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
+	setsockopt (sockfd, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof(timeout));
 
 	connected = connect(sockfd, (struct sockaddr *)&their_addr, sizeof(struct sockaddr));
 
@@ -62,7 +65,6 @@ void *processmessages(void *vargp)  {
 		}
 	}
 }
-
 
 size_t socket_write(uint8_t in_value) {
 
