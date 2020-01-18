@@ -56,7 +56,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-port 9007"
+            argument = "-port 5000"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
