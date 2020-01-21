@@ -82,6 +82,8 @@
 		A1C5FAC623BCC71600897B0F /* disasm.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FAA423BCC71600897B0F /* disasm.c */; };
 		A1C5FAC823BCC71600897B0F /* keyboard.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FAA723BCC71600897B0F /* keyboard.c */; };
 		A1C5FACC23BCC78B00897B0F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FACB23BCC78A00897B0F /* main.c */; };
+		A1CE2D9423D77C7000A9F12C /* serialclient.c in Sources */ = {isa = PBXBuildFile; fileRef = A1CE2D9323D77C7000A9F12C /* serialclient.c */; };
+		A1CE2D9523D77C7000A9F12C /* serialclient.c in Sources */ = {isa = PBXBuildFile; fileRef = A1CE2D9323D77C7000A9F12C /* serialclient.c */; };
 		A1D09D6223C1D463009373CD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1D09D6123C1D463009373CD /* Images.xcassets */; };
 		A1D2019623D098A7006CD799 /* uartqueue.c in Sources */ = {isa = PBXBuildFile; fileRef = A1D2019323D098A7006CD799 /* uartqueue.c */; };
 		A1D2019723D098A7006CD799 /* uartqueue.c in Sources */ = {isa = PBXBuildFile; fileRef = A1D2019323D098A7006CD799 /* uartqueue.c */; };
@@ -319,6 +321,8 @@
 		A1C5FAA523BCC71600897B0F /* loadsave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = loadsave.h; path = ../../loadsave.h; sourceTree = "<group>"; };
 		A1C5FAA723BCC71600897B0F /* keyboard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = keyboard.c; path = ../../keyboard.c; sourceTree = "<group>"; };
 		A1C5FACB23BCC78A00897B0F /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../../main.c; sourceTree = "<group>"; };
+		A1CE2D9223D77C7000A9F12C /* serialclient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = serialclient.h; sourceTree = "<group>"; };
+		A1CE2D9323D77C7000A9F12C /* serialclient.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = serialclient.c; sourceTree = "<group>"; };
 		A1D09D6123C1D463009373CD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CommanderX16/Images.xcassets; sourceTree = "<group>"; };
 		A1D2019223D098A7006CD799 /* socketclient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socketclient.h; sourceTree = "<group>"; };
 		A1D2019323D098A7006CD799 /* uartqueue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uartqueue.c; sourceTree = "<group>"; };
@@ -440,7 +444,7 @@
 				A1C5FA9D23BCC71500897B0F /* video.c */,
 				A1C5FA9423BCC71500897B0F /* video.h */,
 				A1C5FACB23BCC78A00897B0F /* main.c */,
-				A1D2019123D098A7006CD799 /* socketuart */,
+				A1D2019123D098A7006CD799 /* uart */,
 				A1C5FA9723BCC71500897B0F /* webassembly */,
 			);
 			name = Sources;
@@ -620,16 +624,34 @@
 			path = ../../webassembly;
 			sourceTree = "<group>";
 		};
-		A1D2019123D098A7006CD799 /* socketuart */ = {
+		A1CE2D9023D77C3D00A9F12C /* sockets */ = {
 			isa = PBXGroup;
 			children = (
 				A1D2019223D098A7006CD799 /* socketclient.h */,
 				A1D2019423D098A7006CD799 /* socketclient.c */,
+			);
+			path = sockets;
+			sourceTree = "<group>";
+		};
+		A1CE2D9123D77C4900A9F12C /* serial */ = {
+			isa = PBXGroup;
+			children = (
+				A1CE2D9223D77C7000A9F12C /* serialclient.h */,
+				A1CE2D9323D77C7000A9F12C /* serialclient.c */,
+			);
+			path = serial;
+			sourceTree = "<group>";
+		};
+		A1D2019123D098A7006CD799 /* uart */ = {
+			isa = PBXGroup;
+			children = (
+				A1CE2D9123D77C4900A9F12C /* serial */,
+				A1CE2D9023D77C3D00A9F12C /* sockets */,
 				A1D2019523D098A7006CD799 /* uartqueue.h */,
 				A1D2019323D098A7006CD799 /* uartqueue.c */,
 			);
-			name = socketuart;
-			path = ../../socketuart;
+			name = uart;
+			path = ../../uart;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -834,6 +856,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1CE2D9423D77C7000A9F12C /* serialclient.c in Sources */,
 				A1C5FACC23BCC78B00897B0F /* main.c in Sources */,
 				A1C5FABA23BCC71600897B0F /* debugger.c in Sources */,
 				A1C5FAAA23BCC71600897B0F /* vera_spi.c in Sources */,
@@ -875,6 +898,7 @@
 				A143C9B123CF064E00B85C02 /* vera_uart.c in Sources */,
 				A1D2019923D098A7006CD799 /* socketclient.c in Sources */,
 				A143C9AF23CF064E00B85C02 /* spi.c in Sources */,
+				A1CE2D9523D77C7000A9F12C /* serialclient.c in Sources */,
 				A143C9AB23CF064E00B85C02 /* memory.c in Sources */,
 				A143C9A423CF064200B85C02 /* fake6502.c in Sources */,
 				A143C9A323CF062800B85C02 /* debugger.c in Sources */,
@@ -1042,6 +1066,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"-ffast-math",
+					"-DWITH_SERIAL",
+					"-DWITH_YM2151",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -1097,6 +1126,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"-ffast-math",
+					"-DWITH_SERIAL",
+					"-DWITH_YM2151",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -1114,7 +1148,6 @@
 				OTHER_CFLAGS = (
 					"-ffast-math",
 					"-DWITH_YM2151",
-					"-DWITH_SOCKETS",
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-lobjc";
 				PREBINDING = NO;
@@ -1134,7 +1167,6 @@
 				OTHER_CFLAGS = (
 					"-ffast-math",
 					"-DWITH_YM2151",
-					"-DWITH_SOCKETS",
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-lobjc";
 				PREBINDING = NO;

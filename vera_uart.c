@@ -9,6 +9,10 @@
 #include "socketclient.h"
 #include "uartqueue.h"
 #endif
+#ifdef WITH_SERIAL
+#include "serialclient.h"
+#include "uartqueue.h"
+#endif
 
 #define BITS_PER_BYTE 9 /* 8N1 is 9 bits */
 #define SPEED_RATIO (25.0/MHZ) /* VERA runs at 25 MHz */
@@ -31,7 +35,7 @@ static bool
 data_available()
 {
 
-#ifdef WITH_SOCKETS
+#if  defined(WITH_SOCKETS) || defined(WITH_SERIAL)
 	return true;
 #else
 	if (countdown_in > 0) {
@@ -51,7 +55,7 @@ static void
 cache_next_char()
 {
 
-#ifdef WITH_SOCKETS
+#if  defined(WITH_SOCKETS) || defined(WITH_SERIAL)
 	byte_in = get_incoming_value();
 #else
 	if (uart_in_file) {
@@ -71,6 +75,9 @@ vera_uart_init()
 
 #ifdef WITH_SOCKETS
 	socket_connect();
+#endif
+#ifdef WITH_SERIAL
+	serial_connect();
 #endif
 
 	cache_next_char();
@@ -115,10 +122,8 @@ vera_uart_read(uint8_t reg)
 void
 vera_uart_write(uint8_t reg, uint8_t value)
 {
-#ifdef WITH_SOCKETS
-	//socket_write(value);
+#if defined(WITH_SOCKETS) || defined(WITH_SERIAL)
 	insert_outgoing_value(value);
-	countdown_out = bauddiv * BITS_PER_BYTE;
 #else
 
 	switch (reg) {

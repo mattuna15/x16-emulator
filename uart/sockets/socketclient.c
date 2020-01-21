@@ -16,7 +16,6 @@
 #include <string.h>
 #include <arpa/inet.h>	//inet_addr
 
-char *convert_char(uint8_t *a);
 int sockfd;
 int connected;
 
