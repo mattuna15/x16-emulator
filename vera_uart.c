@@ -1,7 +1,7 @@
 // Commander X16 Emulator
 // Copyright (c) 2019 Michael Steil
 // All rights reserved. License: 2-clause BSD
-#define SOCKETS 1
+
 #include <stdio.h>
 #include <stdbool.h>
 #include "glue.h"
@@ -33,7 +33,6 @@ data_available()
 
 #ifdef WITH_SOCKETS
 	return true;
-	//return get_queue_length() > 0;
 #else
 	if (countdown_in > 0) {
 		return false;

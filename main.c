@@ -4,7 +4,6 @@
 
 #define _XOPEN_SOURCE	600
 #define _POSIX_C_SOURCE 1
-
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -17,6 +16,7 @@
 #endif
 #include "cpu/fake6502.h"
 #include "disasm.h"
+#include "memory.h"
 #include "video.h"
 #include "via.h"
 #include "ps2.h"
@@ -26,7 +26,6 @@
 #include "sdcard.h"
 #include "loadsave.h"
 #include "glue.h"
-#include "memory.h"
 #include "debugger.h"
 #include "utf8.h"
 #include "joystick.h"
@@ -459,12 +458,12 @@ main(int argc, char **argv)
 	bool run_test = false;
 	int test_number = 0;
 
-#if !SOCKETS
-	char *uart_in_path = NULL;
-	char *uart_out_path = NULL;
-#else
+#ifdef WITH_SOCKETS
 	char *uart_in_path = "socket";
 	char *uart_out_path = "socket";
+#else
+	char *uart_in_path = NULL;
+	char *uart_out_path = NULL;
 #endif
 
 	run_after_load = false;
@@ -498,7 +497,7 @@ main(int argc, char **argv)
 			int kb = atoi(argv[0]);
 			bool found = false;
 			for (int cmp = 8; cmp <= 2048; cmp *= 2) {
-				if (kb == cmp)	{
+				if (kb == cmp) {
 					found = true;
 				}
 			}
@@ -814,7 +813,15 @@ main(int argc, char **argv)
 		}
 	}
 
-#if !SOCKETS
+#ifdef WITH_SOCKETS
+	if (uart_in_path) {
+		printf("Using %s!\n", uart_in_path);
+	}
+
+	if (uart_out_path) {
+		printf("Using: %s!\n", uart_out_path);
+	}
+#else
 	if (uart_in_path) {
 		uart_in_file = fopen(uart_in_path, "r");
 		if (!uart_in_file) {
@@ -829,14 +836,6 @@ main(int argc, char **argv)
 			printf("Cannot open %s!\n", uart_out_path);
 			exit(1);
 		}
-	}
-#else
-	if (uart_in_path) {
-		printf("Using %s!\n", uart_in_path);
-	}
-
-	if (uart_out_path) {
-		printf("Using: %s!\n", uart_out_path);
 	}
 #endif
 	
