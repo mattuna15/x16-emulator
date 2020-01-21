@@ -43,6 +43,10 @@
 #include <pthread.h>
 #endif
 
+#ifdef WITH_SERIAL
+#include "serialclient.h"
+#endif
+
 void *emulator_loop(void *param);
 void emscripten_main_loop(void);
 
@@ -351,6 +355,10 @@ usage()
 	printf("-port [<port>]\n");
 	printf("\tSpecify a port number to connect UART to\n");
 #endif
+#ifdef WITH_SOCKETS
+	printf("-serialport [<device path>]\n");
+	printf("\tSpecify a serial port device to connect UART to\n");
+#endif
 	printf("\n");
 	exit(1);
 }
@@ -446,6 +454,9 @@ main(int argc, char **argv)
 #ifdef WITH_SOCKETS
 	char *uart_in_path = "socket";
 	char *uart_out_path = "socket";
+#elif defined(WITH_SERIAL)
+	char *uart_in_path = "serial";
+	char *uart_out_path = "serial";
 #else
 	char *uart_in_path = NULL;
 	char *uart_out_path = NULL;
@@ -775,6 +786,18 @@ main(int argc, char **argv)
 			argc--;
 			argv++;
 		}
+#elif defined(WITH_SERIAL)
+		else if (!strcmp(argv[0], "-serialport")) {
+			argc--;
+			argv++;
+			if (!argc || argv[0][0] == '-') {
+				usage();
+			}
+			serial_device = argv[0];
+			argc--;
+			argv++;
+		}
+
 #endif
 		else {
 			usage();
@@ -798,7 +821,7 @@ main(int argc, char **argv)
 		}
 	}
 
-#ifdef WITH_SOCKETS
+#if defined(WITH_SOCKETS) || defined(WITH_SERIAL)
 	if (uart_in_path) {
 		printf("Using %s!\n", uart_in_path);
 	}
@@ -889,6 +912,11 @@ main(int argc, char **argv)
 #ifdef WITH_YM2151
 	closeAudio();
 #endif
+
+#ifdef WITH_SERIAL
+	serial_close();
+#endif
+	
 	video_end();
 	SDL_Quit();
 

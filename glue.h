@@ -59,8 +59,12 @@ extern char *gif_path;
 extern uint8_t keymap;
 
 #ifdef WITH_SOCKETS
-extern char *ip_address;;
+extern char *ip_address;
 extern int port;
+#endif
+
+#ifdef WITH_SERIAL
+extern char *serial_device;
 #endif
 
 extern void machine_dump();
