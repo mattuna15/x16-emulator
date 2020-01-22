@@ -15,6 +15,8 @@
 #include "uartqueue.h"
 #include <string.h>
 #include <arpa/inet.h>	//inet_addr
+#include <stdlib.h>
+#include <sys/time.h>
 
 int sockfd;
 int connected;
