@@ -1,20 +1,26 @@
 //
-//  socketclient.c
-//  CommanderX16
+//	socketclient.c
+//	CommanderX16
 //
 //	; (C)2020 Matthew Pearce, License: 2-clause BSD//
 
 #include "socketclient.h"
 
-#include <sys/types.h>
+#ifdef __WIN32__
+#include <winsock2.h>
+#else
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>	//inet_addr
 #include <netdb.h>
+#endif
+
+#include <sys/types.h>
 #include <unistd.h>
 #include <pthread.h>
 #include "uartqueue.h"
 #include <string.h>
-#include <arpa/inet.h>	//inet_addr
+#include <sys/time.h>
 
 int sockfd;
 int connected;
@@ -26,6 +32,12 @@ int port = 80;
 
 void socket_connect() {
 
+#ifdef __WIN32__
+	WORD versionWanted = MAKEWORD(1, 1);
+	WSADATA wsaData;
+	WSAStartup(versionWanted, &wsaData);
+#endif
+
 	struct sockaddr_in their_addr;
 
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -35,8 +47,8 @@ void socket_connect() {
 	their_addr.sin_addr.s_addr = inet_addr(ip_address);
 
 	struct timeval timeout;
-    timeout.tv_sec = 1;
-    timeout.tv_usec = 0;
+	timeout.tv_sec = 1;
+	timeout.tv_usec = 0;
 	setsockopt (sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
 	setsockopt (sockfd, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof(timeout));
 
@@ -46,10 +58,9 @@ void socket_connect() {
 		pthread_t tid;
 		pthread_create(&tid, NULL, processmessages, (void *)&tid);
 	}
-
 }
 
-void *processmessages(void *vargp)  {
+void *processmessages(void *vargp) {
 
 	for(;;) {
 
@@ -64,9 +75,14 @@ void *processmessages(void *vargp)  {
 	}
 }
 
+
 size_t socket_write(uint8_t in_value) {
 
-	size_t bytes_sent =  send(sockfd, &in_value, sizeof(in_value), 0);
+#ifdef __WIN32__
+	size_t bytes_sent = send(sockfd, (const char *)&in_value, sizeof(in_value), 0);
+#else
+	size_t bytes_sent = send(sockfd, &in_value, sizeof(in_value), 0);
+#endif
 	return bytes_sent;
 }
 

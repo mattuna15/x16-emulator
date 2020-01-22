@@ -366,6 +366,10 @@ usage()
 	printf("-serialport [<device path>]\n");
 	printf("\tSpecify a serial port device to connect UART to\n");
 #endif
+#ifdef WITH_SERIAL
+	printf("-serialport [<device path>]\n");
+	printf("\tSpecify a serial port device to connect UART to\n");
+#endif
 	printf("\n");
 	exit(1);
 }
@@ -802,6 +806,19 @@ main(int argc, char **argv)
 			argv++;
 		}
 #elif defined(WITH_SERIAL)
+		else if (!strcmp(argv[0], "-serialport")) {
+			argc--;
+			argv++;
+			if (!argc || argv[0][0] == '-') {
+				usage();
+			}
+			serial_device = argv[0];
+			argc--;
+			argv++;
+		}
+
+#endif
+#ifdef WITH_SERIAL
 		else if (!strcmp(argv[0], "-serialport")) {
 			argc--;
 			argv++;
