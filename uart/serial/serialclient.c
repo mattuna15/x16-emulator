@@ -19,7 +19,7 @@
 
 int fd; /* File descriptor for the port */
 pthread_t tid;
-speed_t baud = B9600; /* baud rate */
+speed_t baud = B2400; /* baud rate */
 char *serial_device = "/dev/null";
 void *process_serial(void *vargp) ;
 void serial_read();

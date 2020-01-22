@@ -355,7 +355,7 @@ usage()
 	printf("-port [<port>]\n");
 	printf("\tSpecify a port number to connect UART to\n");
 #endif
-#ifdef WITH_SOCKETS
+#ifdef WITH_SERIAL
 	printf("-serialport [<device path>]\n");
 	printf("\tSpecify a serial port device to connect UART to\n");
 #endif
@@ -786,7 +786,8 @@ main(int argc, char **argv)
 			argc--;
 			argv++;
 		}
-#elif defined(WITH_SERIAL)
+#endif
+#ifdef WITH_SERIAL
 		else if (!strcmp(argv[0], "-serialport")) {
 			argc--;
 			argv++;

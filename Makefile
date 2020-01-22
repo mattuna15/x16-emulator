@@ -1,3 +1,7 @@
+
+WITH_YM2151=1
+WITH_SERIAL=1
+
 # the mingw32 path on macOS installed through homebrew
 MINGW32=/usr/local/Cellar/mingw-w64/6.0.0_2/toolchain-i686/i686-w64-mingw32
 # the Windows SDL2 path on macOS installed through ./configure --prefix=... && make && make install
@@ -44,9 +48,16 @@ CFLAGS += -DWITH_YM2151
 endif
 
 ifeq ($(WITH_SOCKETS),1)
-OBJS += socketuart/uartqueue.o socketuart/socketclient.o
-HEADERS += socketuart/uartqueue.h socketuart/socketclient.h
-CFLAGS += -DWITH_SOCKETS -Isocketuart -pthread
+OBJS += uart/uartqueue.o uart/sockets/socketclient.o
+HEADERS += uart/uartqueue.h uart/sockets/socketclient.h
+CFLAGS += -DWITH_SOCKETS -Iuart -Iuart/sockets -pthread
+LDFLAGS += -pthread
+endif
+
+ifeq ($(WITH_SERIAL),1)
+OBJS += uart/uartqueue.o uart/serial/serialclient.o
+HEADERS += uart/uartqueue.h uart/serial/serialclient.h
+CFLAGS += -DWITH_SERIAL -Iuart -Iuart/serial -pthread
 LDFLAGS += -pthread
 endif
 
@@ -145,4 +156,4 @@ package_linux:
 	rm -rf $(TMPDIR_NAME)
 
 clean:
-	rm -f *.o cpu/*.o extern/src/*.o socketuart/*.o x16emu x16emu.exe x16emu.js x16emu.wasm x16emu.data x16emu.worker.js x16emu.html x16emu.html.mem
+	rm -f *.o cpu/*.o extern/src/*.o uart/*.o uart/sockets/*.o uart/serial/*.o x16emu x16emu.exe x16emu.js x16emu.wasm x16emu.data x16emu.worker.js x16emu.html x16emu.html.mem
