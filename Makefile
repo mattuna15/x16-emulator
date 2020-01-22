@@ -1,6 +1,5 @@
 
 WITH_YM2151=1
-WITH_SERIAL=1
 
 # the mingw32 path on macOS installed through homebrew
 MINGW32=/usr/local/Cellar/mingw-w64/6.0.0_2/toolchain-i686/i686-w64-mingw32
@@ -63,6 +62,15 @@ endif
 
 ifneq ("$(wildcard ./rom_labels.h)","")
 HEADERS+=rom_labels.h
+endif
+
+ifeq ($(WITH_SERIAL),1)
+ifeq ($(CROSS_COMPILE_WINDOWS),1)
+$(error Mingw32 does not support serial comms)
+endif
+ifdef EMSCRIPTEN
+$(error erial not supported on web client)
+endif
 endif
 
 all: $(OBJS) $(HEADERS)
