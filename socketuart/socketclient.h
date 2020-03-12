@@ -9,9 +9,8 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <sys/time.h>
+#include <stdlib.h>
 
-void socket_connect(void);
-size_t socket_write(uint8_t in_value);
-uint8_t socket_read(void);
 
 #endif /* socketclient_h */
