@@ -73,7 +73,7 @@ bool insert_incoming_value(uint8_t item)
 {
 	if ((incoming_front == 0 && incoming_rear == MAX_ITEMS - 1) || (incoming_front == incoming_rear + 1)) {
 #ifdef TRACE
-		printf("Queue Overflow\n");]
+		printf("Queue Overflow\n");
 #endif
 		return false;
 	}
@@ -91,7 +91,7 @@ bool insert_incoming_value(uint8_t item)
 	}
 	c_incoming_queue_arr[incoming_rear] = item ;
 #ifdef TRACE
-	printf("Element inserted to queue is : %d\n",c_incoming_queue_arr[incoming_rear]);
+	printf("Element inserted to incoming queue is : %d\n",c_incoming_queue_arr[incoming_rear]);
 #endif
 	return true;
 }
@@ -150,7 +150,7 @@ uint8_t get_incoming_value()
 #ifdef TRACE
 		printf("Queue is empty\n");
 #endif
-		return 0;
+		return 0x00;
 	}
 
 	uint8_t return_value = c_incoming_queue_arr[incoming_front];
@@ -164,7 +164,7 @@ uint8_t get_outgoing_value()
 #ifdef TRACE
 		printf("Queue is empty\n");
 #endif
-		return 0;
+		return 0x00;
 	}
 
 	uint8_t return_value = c_outgoing_queue_arr[outgoing_front];

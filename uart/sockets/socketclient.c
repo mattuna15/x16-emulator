@@ -20,11 +20,13 @@
 #include <pthread.h>
 #include "uartqueue.h"
 #include <string.h>
-#include <sys/time.h>
 
 int sockfd;
 int connected;
 
+void socket_connect(void);
+size_t socket_write(uint8_t in_value);
+uint8_t socket_read(void);
 void *processmessages(void *vargp) ;
 
 char *ip_address = "127.0.0.1";
@@ -66,10 +68,13 @@ void *processmessages(void *vargp) {
 
 		if (get_outgoing_queue_length() > 0) {
 			uint8_t value = get_outgoing_value();
-			socket_write(value);
+            if (value != 0x00)
+                socket_write(value);
 		} else {
 			if (get_incoming_queue_length() < MAX_ITEMS) {
-				insert_incoming_value(socket_read());
+                uint8_t value = socket_read();
+                if (value != 0x00)
+                    insert_incoming_value((uint8_t)value);
 			}
 		}
 	}
@@ -88,11 +93,12 @@ size_t socket_write(uint8_t in_value) {
 
 uint8_t socket_read(void) {
 
-	char reply_message[1];
-	size_t bytes_recv = recv(sockfd, reply_message, 1, 0);
+    char reply_message[1] = {0x00};
+    int bytes_recv = -1;
+	bytes_recv = recv(sockfd, reply_message, 1, 0);
 
 	if (bytes_recv <= 0) {
-		return bytes_recv;
+		return 0x00;
 	} else {
 		uint8_t value = (uint8_t) reply_message[0];
 		return value;
