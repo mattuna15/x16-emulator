@@ -2,9 +2,10 @@
 // Copyright (c) 2019 Michael Steil
 // All rights reserved. License: 2-clause BSD
 
-#define _XOPEN_SOURCE	600
+#ifndef __APPLE__
+#define _XOPEN_SOURCE   600
 #define _POSIX_C_SOURCE 1
-
+#endif
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -22,7 +23,6 @@
 #include "ps2.h"
 #include "spi.h"
 #include "vera_spi.h"
-#include "vera_uart.h"
 #include "sdcard.h"
 #include "loadsave.h"
 #include "glue.h"
@@ -32,7 +32,6 @@
 #include "joystick.h"
 #include "utf8_encode.h"
 #include "rom_symbols.h"
-#ifdef WITH_YM2151
 #include "ym2151.h"
 #endif
 
@@ -43,8 +42,7 @@
 #endif
 #endif
 
-#define AUDIO_SAMPLES 256
-#define SAMPLERATE 22050
+#include "audio.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
@@ -109,17 +107,67 @@ FILE *prg_file ;
 int prg_override_start = -1;
 bool run_after_load = false;
 
-#ifdef WITH_YM2151
-const char *audio_dev_name = NULL;
-SDL_AudioDeviceID audio_dev = 0;
-#endif
-
 #ifdef TRACE
 #include "rom_labels.h"
 char *
 label_for_address(uint16_t address)
 {
-	for (int i = 0; i < sizeof(addresses) / sizeof(*addresses); i++) {
+	uint16_t *addresses;
+	char **labels;
+	int count;
+	switch (memory_get_rom_bank()) {
+		case 0:
+			addresses = addresses_bank0;
+			labels = labels_bank0;
+			count = sizeof(addresses_bank0) / sizeof(uint16_t);
+			break;
+		case 1:
+			addresses = addresses_bank1;
+			labels = labels_bank1;
+			count = sizeof(addresses_bank1) / sizeof(uint16_t);
+			break;
+		case 2:
+			addresses = addresses_bank2;
+			labels = labels_bank2;
+			count = sizeof(addresses_bank2) / sizeof(uint16_t);
+			break;
+		case 3:
+			addresses = addresses_bank3;
+			labels = labels_bank3;
+			count = sizeof(addresses_bank3) / sizeof(uint16_t);
+			break;
+		case 4:
+			addresses = addresses_bank4;
+			labels = labels_bank4;
+			count = sizeof(addresses_bank4) / sizeof(uint16_t);
+			break;
+		case 5:
+			addresses = addresses_bank5;
+			labels = labels_bank5;
+			count = sizeof(addresses_bank5) / sizeof(uint16_t);
+			break;
+		case 6:
+			addresses = addresses_bank6;
+			labels = labels_bank6;
+			count = sizeof(addresses_bank6) / sizeof(uint16_t);
+			break;
+#if 0
+		case 7:
+			addresses = addresses_bank7;
+			labels = labels_bank7;
+			count = sizeof(addresses_bank7) / sizeof(uint16_t);
+			break;
+#endif
+		default:
+			addresses = NULL;
+			labels = NULL;
+	}
+
+	if (!addresses) {
+		return NULL;
+	}
+
+	for (int i = 0; i < count; i++) {
 		if (address == addresses[i]) {
 			return labels[i];
 		}
@@ -173,7 +221,6 @@ machine_reset()
 {
 	spi_init();
 	vera_spi_init();
-	vera_uart_init();
 	via1_init();
 	via2_init();
 	video_reset();
@@ -298,10 +345,6 @@ usage()
 	printf("\tEnable a specific keyboard layout decode table.\n");
 	printf("-sdcard <sdcard.img>\n");
 	printf("\tSpecify SD card image (partition map + FAT32)\n");
-	printf("-uart-in <filename>\n");
-	printf("\tSpecify filename to read RS232 input from.\n");
-	printf("-uart-out <filename>\n");
-	printf("\tSpecify filename to write RS232 output to.\n");
 	printf("-prg <app.prg>[,<load_addr>]\n");
 	printf("\tLoad application from the local disk into RAM\n");
 	printf("\t(.PRG file with 2 byte start address header)\n");
@@ -344,10 +387,12 @@ usage()
 	printf("\tChoose what type of joystick to use, e.g. -joy1 SNES\n");
 	printf("-joy2 {NES | SNES}\n");
 	printf("\tChoose what type of joystick to use, e.g. -joy2 SNES\n");
-#ifdef WITH_YM2151
 	printf("-sound <output device>\n");
-	printf("\tSet the output device used for audio emulation");
-#endif
+	printf("\tSet the output device used for audio emulation\n");
+	printf("-abufs <number of audio buffers>\n");
+	printf("\tSet the number of audio buffers used for playback. (default: 8)\n");
+	printf("\tIncreasing this will reduce stutter on slower computers,\n");
+	printf("\tbut will increase audio latency.\n");
 #ifdef TRACE
 	printf("-trace [<address>]\n");
 	printf("\tPrint instruction trace. Optionally, a trigger address\n");
@@ -366,70 +411,6 @@ usage_keymap()
 	}
 	exit(1);
 }
-
-#ifdef WITH_YM2151
-void audioCallback(void* userdata, Uint8 *stream, int len)
-{
-	YM_stream_update((uint16_t*) stream, len / 4);
-}
-
-void usageSound()
-{
-	// SDL_GetAudioDeviceName doesn't work if audio isn't initialized.
-	// Since argument parsing happens before initializing SDL, ensure the
-	// audio subsystem is initialized before printing audio device names.
-	SDL_InitSubSystem(SDL_INIT_AUDIO);
-
-	// List all available sound devices
-	printf("The following sound output devices are available:\n");
-	const int sounds = SDL_GetNumAudioDevices(0);
-	for (int i=0; i < sounds; ++i) {
-		printf("\t%s\n", SDL_GetAudioDeviceName(i, 0));
-	}
-
-	SDL_Quit();
-	exit(1);
-}
-
-void
-init_audio()
-{
-	SDL_AudioSpec want;
-	SDL_AudioSpec have;
-
-	// setup SDL audio
-	want.freq = SAMPLERATE;
-	want.format = AUDIO_S16SYS;
-	want.channels = 2;
-	want.samples = AUDIO_SAMPLES;
-	want.callback = audioCallback;
-	want.userdata = NULL;
-
-	if (audio_dev > 0)
-	{
-		SDL_CloseAudioDevice(audio_dev);
-	}
-
-	audio_dev = SDL_OpenAudioDevice(audio_dev_name, 0, &want, &have, 9 /* freq | samples */);
-	if ( audio_dev <= 0 ){
-		fprintf(stderr, "SDL_OpenAudioDevice failed: %s\n", SDL_GetError());
-		if (audio_dev_name != NULL) usageSound();
-		exit(-1);
-	}
-
-	// init YM2151 emulation. 4 MHz clock
-	YM_Create(4000000);
-	YM_init(have.freq, 60);
-
-	// start playback
-	SDL_PauseAudioDevice(audio_dev, 0);
-}
-
-void closeAudio()
-{
-	SDL_CloseAudioDevice(audio_dev);
-}
-#endif
 
 #if __APPLE__ && (TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE)
 int HandleAppEvents(void *userdata, SDL_Event *event)
@@ -452,9 +433,9 @@ main(int argc, char **argv)
 	bool run_geos = false;
 	bool run_test = false;
 	int test_number = 0;
+	int audio_buffers = 8;
 
-	char *uart_in_path = NULL;
-	char *uart_out_path = NULL;
+	const char *audio_dev_name = NULL;
 
 	run_after_load = false;
 
@@ -729,33 +710,22 @@ main(int argc, char **argv)
 			}
 			argc--;
 			argv++;
-#ifdef WITH_YM2151
 		} else if (!strcmp(argv[0], "-sound")) {
 			argc--;
 			argv++;
 			if (!argc || argv[0][0] == '-') {
-				usageSound();
+				audio_usage();
 			}
 			audio_dev_name = argv[0];
 			argc--;
 			argv++;
-#endif
-		} else if (!strcmp(argv[0], "-uart-in")) {
+		} else if (!strcmp(argv[0], "-abufs")) {
 			argc--;
 			argv++;
 			if (!argc || argv[0][0] == '-') {
 				usage();
 			}
-			uart_in_path = argv[0];
-			argc--;
-			argv++;
-		} else if (!strcmp(argv[0], "-uart-out")) {
-			argc--;
-			argv++;
-			if (!argc || argv[0][0] == '-') {
-				usage();
-			}
-			uart_out_path = argv[0];
+			audio_buffers = (int)strtol(argv[0], NULL, 10);
 			argc--;
 			argv++;
 		} else {
@@ -776,22 +746,6 @@ main(int argc, char **argv)
 		sdcard_file = fopen(sdcard_path, "rb");
 		if (!sdcard_file) {
 			printf("Cannot open %s!\n", sdcard_path);
-			exit(1);
-		}
-	}
-
-	if (uart_in_path) {
-		uart_in_file = fopen(uart_in_path, "r");
-		if (!uart_in_file) {
-			printf("Cannot open %s!\n", uart_in_path);
-			exit(1);
-		}
-	}
-
-	if (uart_out_path) {
-		uart_out_file = fopen(uart_out_path, "w");
-		if (!uart_out_file) {
-			printf("Cannot open %s!\n", uart_out_path);
 			exit(1);
 		}
 	}
@@ -835,15 +789,9 @@ main(int argc, char **argv)
 		snprintf(paste_text, sizeof(paste_text_data), "TEST %d\r", test_number);
 	}
 
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER
-#ifdef WITH_YM2151
-		| SDL_INIT_AUDIO
-#endif
-		);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER | SDL_INIT_AUDIO);
 
-#ifdef WITH_YM2151
-	init_audio();
-#endif
+	audio_init(audio_dev_name, audio_buffers);
 
 	memory_init();
 	video_init(window_scale, scale_quality);
@@ -868,9 +816,7 @@ main(int argc, char **argv)
 	emulator_loop(NULL);
 #endif
 
-#ifdef WITH_YM2151
-	closeAudio();
-#endif
+	audio_close();
 	video_end();
 	SDL_Quit();
 
@@ -941,14 +887,15 @@ emulator_loop(void *param)
 			trace_mode = true;
 		}
 		if (trace_mode) {
-			printf("\t\t\t\t[%6d] ", instruction_counter);
+			//printf("\t\t\t\t");
+			printf("[%6d] ", instruction_counter);
 
 			char *label = label_for_address(pc);
 			int label_len = label ? strlen(label) : 0;
 			if (label) {
 				printf("%s", label);
 			}
-			for (int i = 0; i < 10 - label_len; i++) {
+			for (int i = 0; i < 20 - label_len; i++) {
 				printf(" ");
 			}
 			printf(" %02x:.,%04x ", memory_get_rom_bank(), pc);
@@ -969,12 +916,26 @@ emulator_loop(void *param)
 			for (int i = 7; i >= 0; i--) {
 				printf("%c", (status & (1 << i)) ? "czidb.vn"[i] : '-');
 			}
-			printf(" --- rambank:%01x", memory_get_ram_bank());
 
+#if 0
 			printf(" ---");
-			for (int i = 0; i < 8; i++) {
+			for (int i = 0; i < 6; i++) {
 				printf(" r%i:%04x", i, RAM[2 + i*2] | RAM[3 + i*2] << 8);
 			}
+			for (int i = 14; i < 16; i++) {
+				printf(" r%i:%04x", i, RAM[2 + i*2] | RAM[3 + i*2] << 8);
+			}
+
+			printf(" RAM:%01x", memory_get_ram_bank());
+			printf(" px:%d py:%d", RAM[0xa0e8] | RAM[0xa0e9] << 8, RAM[0xa0ea] | RAM[0xa0eb] << 8);
+
+//			printf(" c:%d", RAM[0xa0e2]);
+//			printf("-");
+//			for (int i = 0; i < 10; i++) {
+//				printf("%02x:", RAM[0xa041+i]);
+//			}
+#endif
+
 			printf("\n");
 		}
 #endif
@@ -1001,9 +962,9 @@ emulator_loop(void *param)
 			spi_step();
 			joystick_step();
 			vera_spi_step();
-			vera_uart_step();
 			new_frame |= video_step(MHZ);
 		}
+		audio_render(clocks);
 
 		instruction_counter++;
 
@@ -1053,6 +1014,7 @@ emulator_loop(void *param)
 
 		if (video_get_irq_out()) {
 			if (!(status & 4)) {
+//				printf("IRQ!\n");
 				irq6502();
 			}
 		}
