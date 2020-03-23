@@ -33,7 +33,6 @@
 #include "utf8_encode.h"
 #include "rom_symbols.h"
 #include "ym2151.h"
-#endif
 
 #if __APPLE__
 #include <TargetConditionals.h>

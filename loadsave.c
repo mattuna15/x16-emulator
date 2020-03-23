@@ -67,7 +67,7 @@ create_directory_listing(uint8_t *data)
 	#else
 	const char *filename = ".";
 	#endif
-
+	
 	if (!(dirp = opendir(filename))) {
 		return 0;
 	}
@@ -160,7 +160,7 @@ LOAD()
 		char *full_filename = filename;
 		#endif
 
-		SDL_RWops *f = SDL_RWFromFile(filename, "rb");
+		SDL_RWops *f = SDL_RWFromFile(full_filename, "rb");
 		if (!f) {
 			a = 4; // FNF
 			RAM[STATUS] = a;
@@ -250,7 +250,7 @@ SAVE()
 	char *full_filename = filename;
 	#endif
 
-	SDL_RWops *f = SDL_RWFromFile(filename, "wb");
+	SDL_RWops *f = SDL_RWFromFile(full_filename, "wb");
 	if (!f) {
 		a = 4; // FNF
 		RAM[STATUS] = a;
