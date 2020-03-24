@@ -22,7 +22,7 @@ pthread_t tid;
 speed_t baud = B9600; /* baud rate */
 char *serial_device = "/dev/null";
 void *process_serial(void *vargp) ;
-void serial_read();
+void serial_read(void);
 /*
  * 'open_port()' - Open serial port 1.
  *
@@ -82,8 +82,9 @@ serial_write(uint8_t in_value) {
 }
 
 
-void serial_read(char *serial_byte) {
-
+void serial_read() {
+	
+	char *serial_byte;
 	char message[255];
 	serial_byte = message;
 	size_t bytes_recv;

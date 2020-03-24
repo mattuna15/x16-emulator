@@ -7,8 +7,6 @@
 
 #include "uartqueue.h"
 
-
-
 uint8_t c_incoming_queue_arr[MAX_ITEMS];
 uint8_t c_outgoing_queue_arr[MAX_ITEMS];
 int incoming_front = -1;

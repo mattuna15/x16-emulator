@@ -12,5 +12,5 @@
 #include <sys/time.h>
 #include <stdlib.h>
 
-
+void socket_connect(void);
 #endif /* socketclient_h */

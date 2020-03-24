@@ -408,10 +408,6 @@ usage()
 	printf("-port [<port>]\n");
 	printf("\tSpecify a port number to connect UART to\n");
 #endif
-#ifdef WITH_SOCKETS
-	printf("-serialport [<device path>]\n");
-	printf("\tSpecify a serial port device to connect UART to\n");
-#endif
 #ifdef WITH_SERIAL
 	printf("-serialport [<device path>]\n");
 	printf("\tSpecify a serial port device to connect UART to\n");
@@ -832,22 +828,6 @@ main(int argc, char **argv)
 
 	if (uart_out_path) {
 		printf("Using: %s!\n", uart_out_path);
-	}
-#else
-	if (uart_in_path) {
-		uart_in_file = fopen(uart_in_path, "r");
-		if (!uart_in_file) {
-			printf("Cannot open %s!\n", uart_in_path);
-			exit(1);
-		}
-	}
-
-	if (uart_out_path) {
-		uart_out_file = fopen(uart_out_path, "w");
-		if (!uart_out_file) {
-			printf("Cannot open %s!\n", uart_out_path);
-			exit(1);
-		}
 	}
 #endif
 	

@@ -25,7 +25,7 @@ int sockfd;
 int connected;
 
 void socket_connect(void);
-size_t socket_write(uint8_t in_value);
+ssize_t socket_write(uint8_t in_value);
 uint8_t socket_read(void);
 void *processmessages(void *vargp) ;
 
@@ -81,12 +81,12 @@ void *processmessages(void *vargp) {
 }
 
 
-size_t socket_write(uint8_t in_value) {
+ssize_t socket_write(uint8_t in_value) {
 
 #ifdef __WIN32__
-	size_t bytes_sent = send(sockfd, (const char *)&in_value, sizeof(in_value), 0);
+	ssize_t bytes_sent = send(sockfd, (const char *)&in_value, sizeof(in_value), 0);
 #else
-	size_t bytes_sent = send(sockfd, &in_value, sizeof(in_value), 0);
+	ssize_t bytes_sent = send(sockfd, &in_value, sizeof(in_value), 0);
 #endif
 	return bytes_sent;
 }
@@ -94,7 +94,7 @@ size_t socket_write(uint8_t in_value) {
 uint8_t socket_read(void) {
 
     char reply_message[1] = {0x00};
-    int bytes_recv = -1;
+    ssize_t bytes_recv = -1;
 	bytes_recv = recv(sockfd, reply_message, 1, 0);
 
 	if (bytes_recv <= 0) {
