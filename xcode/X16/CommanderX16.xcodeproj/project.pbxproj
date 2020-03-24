@@ -41,7 +41,6 @@
 		A143C9AE23CF064E00B85C02 /* sdcard.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA9223BCC71500897B0F /* sdcard.c */; };
 		A143C9AF23CF064E00B85C02 /* spi.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA9623BCC71500897B0F /* spi.c */; };
 		A143C9B023CF064E00B85C02 /* vera_spi.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA6F23BCC71300897B0F /* vera_spi.c */; };
-		A143C9B123CF064E00B85C02 /* vera_uart.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA7023BCC71300897B0F /* vera_uart.c */; };
 		A143C9B223CF064E00B85C02 /* via.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA8E23BCC71400897B0F /* via.c */; };
 		A143C9B323CF064E00B85C02 /* video.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA9D23BCC71500897B0F /* video.c */; };
 		A143C9B423CF064E00B85C02 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FACB23BCC78A00897B0F /* main.c */; };
@@ -55,6 +54,17 @@
 		A1805B3B23BCD23200D2B9F0 /* rom.bin in Resources */ = {isa = PBXBuildFile; fileRef = A1805B3923BCD23200D2B9F0 /* rom.bin */; };
 		A190E77723CBD0AC00328EB6 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD779EDD0E26BA1200F39101 /* CoreAudio.framework */; };
 		A190E78823CC74C000328EB6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A190E77E23CC74C000328EB6 /* README.md */; };
+		A1921F0B2428AC4400EA7747 /* icon.c in Sources */ = {isa = PBXBuildFile; fileRef = A1921F032428AC4300EA7747 /* icon.c */; };
+		A1921F0C2428AC4400EA7747 /* icon.c in Sources */ = {isa = PBXBuildFile; fileRef = A1921F032428AC4300EA7747 /* icon.c */; };
+		A1921F0D2428AC4400EA7747 /* audio.c in Sources */ = {isa = PBXBuildFile; fileRef = A1921F042428AC4400EA7747 /* audio.c */; };
+		A1921F0E2428AC4400EA7747 /* audio.c in Sources */ = {isa = PBXBuildFile; fileRef = A1921F042428AC4400EA7747 /* audio.c */; };
+		A1921F0F2428AC4400EA7747 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = A1921F062428AC4400EA7747 /* Makefile */; };
+		A1921F102428AC4400EA7747 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = A1921F062428AC4400EA7747 /* Makefile */; };
+		A1921F112428AC4400EA7747 /* vera_psg.c in Sources */ = {isa = PBXBuildFile; fileRef = A1921F082428AC4400EA7747 /* vera_psg.c */; };
+		A1921F122428AC4400EA7747 /* vera_psg.c in Sources */ = {isa = PBXBuildFile; fileRef = A1921F082428AC4400EA7747 /* vera_psg.c */; };
+		A1921F132428AC4400EA7747 /* vera_pcm.c in Sources */ = {isa = PBXBuildFile; fileRef = A1921F092428AC4400EA7747 /* vera_pcm.c */; };
+		A1921F142428AC4400EA7747 /* vera_pcm.c in Sources */ = {isa = PBXBuildFile; fileRef = A1921F092428AC4400EA7747 /* vera_pcm.c */; };
+		A1921F152428AC4400EA7747 /* icon.xcf in Resources */ = {isa = PBXBuildFile; fileRef = A1921F0A2428AC4400EA7747 /* icon.xcf */; };
 		A19B6B9F23BCFFB600797D89 /* InputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A19B6B9D23BCFFB600797D89 /* InputViewController.m */; };
 		A19B6BA023BCFFB600797D89 /* InputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A19B6B9E23BCFFB600797D89 /* InputViewController.xib */; };
 		A1A7949B23BF8D7000D813EF /* GameControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A7949923BF8D7000D813EF /* GameControlViewController.m */; };
@@ -62,7 +72,6 @@
 		A1C5FA6623BCC6C200897B0F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1C5FA6523BCC6C200897B0F /* AVFoundation.framework */; };
 		A1C5FAA923BCC71600897B0F /* ym2151.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA6D23BCC71300897B0F /* ym2151.c */; };
 		A1C5FAAA23BCC71600897B0F /* vera_spi.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA6F23BCC71300897B0F /* vera_spi.c */; };
-		A1C5FAAB23BCC71600897B0F /* vera_uart.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA7023BCC71300897B0F /* vera_uart.c */; };
 		A1C5FAAC23BCC71600897B0F /* loadsave.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA7223BCC71300897B0F /* loadsave.c */; };
 		A1C5FAAE23BCC71600897B0F /* joystick.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA7823BCC71400897B0F /* joystick.c */; };
 		A1C5FAAF23BCC71600897B0F /* rendertext.c in Sources */ = {isa = PBXBuildFile; fileRef = A1C5FA7923BCC71400897B0F /* rendertext.c */; };
@@ -265,6 +274,16 @@
 		A1805B3623BCCF2B00D2B9F0 /* libc.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libc.tbd; path = usr/lib/libc.tbd; sourceTree = SDKROOT; };
 		A1805B3923BCD23200D2B9F0 /* rom.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = rom.bin; path = ../../rom.bin; sourceTree = "<group>"; };
 		A190E77E23CC74C000328EB6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+		A1921F012428AC4300EA7747 /* vera_psg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vera_psg.h; path = ../../vera_psg.h; sourceTree = "<group>"; };
+		A1921F022428AC4300EA7747 /* vera_pcm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vera_pcm.h; path = ../../vera_pcm.h; sourceTree = "<group>"; };
+		A1921F032428AC4300EA7747 /* icon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = icon.c; path = ../../icon.c; sourceTree = "<group>"; };
+		A1921F042428AC4400EA7747 /* audio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = audio.c; path = ../../audio.c; sourceTree = "<group>"; };
+		A1921F052428AC4400EA7747 /* icon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = icon.h; path = ../../icon.h; sourceTree = "<group>"; };
+		A1921F062428AC4400EA7747 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = Makefile; path = ../../Makefile; sourceTree = "<group>"; };
+		A1921F072428AC4400EA7747 /* audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = audio.h; path = ../../audio.h; sourceTree = "<group>"; };
+		A1921F082428AC4400EA7747 /* vera_psg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = vera_psg.c; path = ../../vera_psg.c; sourceTree = "<group>"; };
+		A1921F092428AC4400EA7747 /* vera_pcm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = vera_pcm.c; path = ../../vera_pcm.c; sourceTree = "<group>"; };
+		A1921F0A2428AC4400EA7747 /* icon.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; name = icon.xcf; path = ../../icon.xcf; sourceTree = "<group>"; };
 		A19B6B9C23BCFFB600797D89 /* InputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputViewController.h; sourceTree = "<group>"; };
 		A19B6B9D23BCFFB600797D89 /* InputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputViewController.m; sourceTree = "<group>"; };
 		A19B6B9E23BCFFB600797D89 /* InputViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputViewController.xib; sourceTree = "<group>"; };
@@ -277,8 +296,6 @@
 		A1C5FA6D23BCC71300897B0F /* ym2151.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ym2151.c; sourceTree = "<group>"; };
 		A1C5FA6E23BCC71300897B0F /* ym2151.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ym2151.h; sourceTree = "<group>"; };
 		A1C5FA6F23BCC71300897B0F /* vera_spi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = vera_spi.c; path = ../../vera_spi.c; sourceTree = "<group>"; };
-		A1C5FA7023BCC71300897B0F /* vera_uart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = vera_uart.c; path = ../../vera_uart.c; sourceTree = "<group>"; };
-		A1C5FA7123BCC71300897B0F /* vera_uart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vera_uart.h; path = ../../vera_uart.h; sourceTree = "<group>"; };
 		A1C5FA7223BCC71300897B0F /* loadsave.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = loadsave.c; path = ../../loadsave.c; sourceTree = "<group>"; };
 		A1C5FA7323BCC71300897B0F /* rom_symbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rom_symbols.h; path = ../../rom_symbols.h; sourceTree = "<group>"; };
 		A1C5FA7423BCC71400897B0F /* spi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spi.h; path = ../../spi.h; sourceTree = "<group>"; };
@@ -406,6 +423,16 @@
 		29B97315FDCFA39411CA2CEA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				A1921F042428AC4400EA7747 /* audio.c */,
+				A1921F072428AC4400EA7747 /* audio.h */,
+				A1921F032428AC4300EA7747 /* icon.c */,
+				A1921F052428AC4400EA7747 /* icon.h */,
+				A1921F0A2428AC4400EA7747 /* icon.xcf */,
+				A1921F062428AC4400EA7747 /* Makefile */,
+				A1921F092428AC4400EA7747 /* vera_pcm.c */,
+				A1921F022428AC4300EA7747 /* vera_pcm.h */,
+				A1921F082428AC4400EA7747 /* vera_psg.c */,
+				A1921F012428AC4300EA7747 /* vera_psg.h */,
 				A19B6B9223BCFF6A00797D89 /* iOS */,
 				A1805B3923BCD23200D2B9F0 /* rom.bin */,
 				A1C5FA7D23BCC71400897B0F /* cpu */,
@@ -437,8 +464,6 @@
 				A1C5FA7623BCC71400897B0F /* utf8.h */,
 				A1C5FA6F23BCC71300897B0F /* vera_spi.c */,
 				A1C5FA9E23BCC71500897B0F /* vera_spi.h */,
-				A1C5FA7023BCC71300897B0F /* vera_uart.c */,
-				A1C5FA7123BCC71300897B0F /* vera_uart.h */,
 				A1C5FA8E23BCC71400897B0F /* via.c */,
 				A1C5FA9323BCC71500897B0F /* via.h */,
 				A1C5FA9D23BCC71500897B0F /* video.c */,
@@ -841,6 +866,7 @@
 				A1C5FAC123BCC71600897B0F /* main.js in Resources */,
 				A1805B3B23BCD23200D2B9F0 /* rom.bin in Resources */,
 				A1D09D6223C1D463009373CD /* Images.xcassets in Resources */,
+				A1921F152428AC4400EA7747 /* icon.xcf in Resources */,
 				A1C5FABF23BCC71600897B0F /* x16emu-template.html in Resources */,
 				A1C5FABE23BCC71600897B0F /* WebAssembly.md in Resources */,
 				A190E78823CC74C000328EB6 /* README.md in Resources */,
@@ -860,7 +886,6 @@
 				A1C5FACC23BCC78B00897B0F /* main.c in Sources */,
 				A1C5FABA23BCC71600897B0F /* debugger.c in Sources */,
 				A1C5FAAA23BCC71600897B0F /* vera_spi.c in Sources */,
-				A1C5FAAB23BCC71600897B0F /* vera_uart.c in Sources */,
 				A127A00823C5DA0500CA3665 /* JoystickController.swift in Sources */,
 				A1C5FAA923BCC71600897B0F /* ym2151.c in Sources */,
 				A1C5FAB223BCC71600897B0F /* fake6502.c in Sources */,
@@ -873,10 +898,15 @@
 				A1C5FAB923BCC71600897B0F /* via.c in Sources */,
 				A1D2019623D098A7006CD799 /* uartqueue.c in Sources */,
 				A19B6B9F23BCFFB600797D89 /* InputViewController.m in Sources */,
+				A1921F132428AC4400EA7747 /* vera_pcm.c in Sources */,
 				A1C5FAAF23BCC71600897B0F /* rendertext.c in Sources */,
+				A1921F112428AC4400EA7747 /* vera_psg.c in Sources */,
 				A1C5FAC323BCC71600897B0F /* video.c in Sources */,
+				A1921F0F2428AC4400EA7747 /* Makefile in Sources */,
 				A1C5FAC623BCC71600897B0F /* disasm.c in Sources */,
+				A1921F0B2428AC4400EA7747 /* icon.c in Sources */,
 				A153A2CD23C12728000C9C1E /* MessageObserver.m in Sources */,
+				A1921F0D2428AC4400EA7747 /* audio.c in Sources */,
 				A1C5FABD23BCC71600897B0F /* spi.c in Sources */,
 				A1C5FABB23BCC71600897B0F /* sdcard.c in Sources */,
 				A1C5FAC523BCC71600897B0F /* javascript_interface.c in Sources */,
@@ -891,15 +921,20 @@
 			files = (
 				A143C9AC23CF064E00B85C02 /* ps2.c in Sources */,
 				A143C9A623CF064A00B85C02 /* ym2151.c in Sources */,
+				A1921F0C2428AC4400EA7747 /* icon.c in Sources */,
 				A143C9AD23CF064E00B85C02 /* rendertext.c in Sources */,
 				A143C9B023CF064E00B85C02 /* vera_spi.c in Sources */,
 				A143C9B423CF064E00B85C02 /* main.c in Sources */,
 				A143C9AA23CF064E00B85C02 /* loadsave.c in Sources */,
+				A1921F0E2428AC4400EA7747 /* audio.c in Sources */,
 				A143C9B123CF064E00B85C02 /* vera_uart.c in Sources */,
 				A1D2019923D098A7006CD799 /* socketclient.c in Sources */,
 				A143C9AF23CF064E00B85C02 /* spi.c in Sources */,
 				A1CE2D9523D77C7000A9F12C /* serialclient.c in Sources */,
 				A143C9AB23CF064E00B85C02 /* memory.c in Sources */,
+				A1921F102428AC4400EA7747 /* Makefile in Sources */,
+				A1921F122428AC4400EA7747 /* vera_psg.c in Sources */,
+				A1921F142428AC4400EA7747 /* vera_pcm.c in Sources */,
 				A143C9A423CF064200B85C02 /* fake6502.c in Sources */,
 				A143C9A323CF062800B85C02 /* debugger.c in Sources */,
 				A143C9A823CF064E00B85C02 /* joystick.c in Sources */,

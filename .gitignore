@@ -74,3 +74,6 @@ xcode/Frameworks/SDL/test/testmultiaudio
 xcode/Frameworks/SDL/Xcode-iOS/Demos/Demos.xcodeproj/project.xcworkspace/contents.xcworkspacedata
 xcode/Frameworks/SDL/Xcode-iOS/Demos/Demos.xcodeproj/xcuserdata/mpe18.xcuserdatad/xcschemes/xcschememanagement.plist
 xcode/Frameworks/SDL/Xcode/SDL/SDL.xcodeproj/xcuserdata/mpe18.xcuserdatad/xcschemes/xcschememanagement.plist
+xcode/Frameworks
+xcode/X16/CommanderX16.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+xcode/X16/CommanderX16.xcodeproj/project.xcworkspace/xcuserdata/mpe18.xcuserdatad/UserInterfaceState.xcuserstate

@@ -13,6 +13,11 @@ endif
 CFLAGS=-std=c99 -O3 -Wall -Werror -g $(shell $(SDL2CONFIG) --cflags) -Iextern/include -Iextern/src
 LDFLAGS=$(shell $(SDL2CONFIG) --libs) -lm
 
+
+ifdef TRACE
+	CFLAGS+=-D TRACE
+endif
+
 OUTPUT=x16emu
 
 ifeq ($(MAC_STATIC),1)
@@ -34,15 +39,12 @@ ifdef EMSCRIPTEN
 	OUTPUT=x16emu.html
 endif
 
-OBJS = cpu/fake6502.o memory.o disasm.o video.o ps2.o via.o loadsave.o spi.o vera_uart.o vera_spi.o sdcard.o main.o debugger.o javascript_interface.o joystick.o rendertext.o keyboard.o
+OBJS = cpu/fake6502.o memory.o disasm.o video.o ps2.o via.o loadsave.o spi.o vera_spi.o audio.o vera_pcm.o vera_psg.o sdcard.o main.o debugger.o javascript_interface.o joystick.o rendertext.o keyboard.o icon.o
 
-HEADERS = disasm.h cpu/fake6502.h glue.h memory.h video.h ps2.h via.h loadsave.h joystick.h keyboard.h
+HEADERS = disasm.h cpu/fake6502.h glue.h memory.h video.h audio.h vera_pcm.h vera_psg.h ps2.h via.h loadsave.h joystick.h keyboard.h
 
-ifeq ($(WITH_YM2151),1)
 OBJS += extern/src/ym2151.o
 HEADERS += extern/src/ym2151.h
-CFLAGS += -DWITH_YM2151
-endif
 
 ifeq ($(WITH_SOCKETS),1)
 OBJS += socketuart/uartqueue.o socketuart/socketclient.o
@@ -103,8 +105,14 @@ TMPDIR_NAME=TMP-x16emu-package
 
 define add_extra_files_to_package
 	# ROMs
-	cp ../x16-rom/rom.bin $(TMPDIR_NAME)
-	cp ../x16-rom/rom.txt $(TMPDIR_NAME)/rom.sym
+	cp ../x16-rom/build/x16/rom.bin $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/kernal.sym  $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/keymap.sym  $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/cbdos.sym   $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/geos.sym    $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/basic.sym   $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/monitor.sym $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/charset.sym $(TMPDIR_NAME)
 
 	# Documentation
 	mkdir $(TMPDIR_NAME)/docs
