@@ -34,6 +34,7 @@
 #include "utf8_encode.h"
 #include "rom_symbols.h"
 #include "ym2151.h"
+#include "audio.h"
 
 #if __APPLE__
 #include <TargetConditionals.h>
@@ -41,16 +42,19 @@
 #include "ios_functions.h"
 #endif
 #endif
-
-#include "audio.h"
-
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
 #include <pthread.h>
 #endif
 
+#ifdef WITH_SOCKETS
+#include "socketclient.h"
+#include "vera_uart.h"
+#endif
+
 #ifdef WITH_SERIAL
 #include "serialclient.h"
+#include "vera_uart.h"
 #endif
 
 void *emulator_loop(void *param);
@@ -225,6 +229,7 @@ machine_reset()
 {
 	spi_init();
 	vera_spi_init();
+	vera_uart_init();
 	via1_init();
 	via2_init();
 	video_reset();
@@ -1047,6 +1052,7 @@ emulator_loop(void *param)
 			spi_step();
 			joystick_step();
 			vera_spi_step();
+			vera_uart_step();
 			new_frame |= video_step(MHZ);
 		}
 		audio_render(clocks);

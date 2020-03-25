@@ -67,9 +67,10 @@ extern int port;
 extern char *serial_device;
 #endif
 
-extern void machine_dump();
-extern void machine_reset();
-extern void machine_paste();
-extern void init_audio();
+extern void machine_dump(void);
+extern void machine_reset(void);
+extern void machine_paste(char *s);
+extern void init_audio(void);
+extern void vera_uart_step(void);
 
 #endif

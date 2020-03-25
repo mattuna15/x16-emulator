@@ -1110,8 +1110,7 @@
 				MTL_FAST_MATH = YES;
 				OTHER_CFLAGS = (
 					"-ffast-math",
-					"-DWITH_SERIAL",
-					"-DWITH_YM2151",
+					"-DWITH_SOCKETS",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1171,8 +1170,7 @@
 				MTL_FAST_MATH = YES;
 				OTHER_CFLAGS = (
 					"-ffast-math",
-					"-DWITH_SERIAL",
-					"-DWITH_YM2151",
+					"-DWITH_SOCKETS",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
