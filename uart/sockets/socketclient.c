@@ -58,7 +58,7 @@ void socket_connect() {
 
 	if (connected >= 0) {
 		pthread_t tid;
-		pthread_create(&tid, NULL, processmessages, (void *)&tid);
+		pthread_create(&tid, NULL, processmessages, (void *)tid);
 	}
 }
 
