@@ -105,8 +105,10 @@ vera_uart_read(uint8_t reg)
 	switch (reg) {
 		case 0: {
 			countdown_in = bauddiv * BITS_PER_BYTE;
-			//printf("UART read: $%02x\n", byte_in);
-			return byte_in;
+			if (byte_in != 0x00) {
+				return byte_in;
+			}
+			return 0x00;
 		}
 		case 1: {
 			return (txbusy() << 1) | data_available();

@@ -72,7 +72,7 @@ real_read6502(uint16_t address, bool debugOn, uint8_t bank)
 			// emulator state
 			return emu_read(address & 0xf, debugOn);
 		} else if (address == 0x9fc0) {
-			return vera_uart_read(address);
+			return vera_uart_read(address & 0xf);
 		} else {
 			return 0;
 		}
@@ -114,7 +114,7 @@ write6502(uint16_t address, uint8_t value)
 		} else if (address == 0x9fe1) {
 			YM_write_reg(lastAudioAdr, value);
 		} else if (address == 0x9fc1) {
-			vera_uart_write(address, value);
+			vera_uart_write(address & 0xf, value);
 		} else {
 			// future expansion
 		}
