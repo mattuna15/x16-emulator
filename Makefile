@@ -1,3 +1,4 @@
+WITH_SOCKETS=1
 
 # the mingw32 path on macOS installed through homebrew
 MINGW32=/usr/local/Cellar/mingw-w64/6.0.0_2/toolchain-i686/i686-w64-mingw32
@@ -10,7 +11,7 @@ else
 	SDL2CONFIG=sdl2-config
 endif
 
-CFLAGS=-std=c99 -O3 -Wall -Werror -g $(shell $(SDL2CONFIG) --cflags) -Iextern/include -Iextern/src
+CFLAGS=-std=c99 -O3 -Wall -Werror -g $(shell $(SDL2CONFIG) --cflags) -Iextern/include -Iextern/src 
 LDFLAGS=$(shell $(SDL2CONFIG) --libs) -lm
 
 
@@ -47,9 +48,9 @@ OBJS += extern/src/ym2151.o
 HEADERS += extern/src/ym2151.h
 
 ifeq ($(WITH_SOCKETS),1)
-OBJS += socketuart/uartqueue.o socketuart/socketclient.o
-HEADERS += socketuart/uartqueue.h socketuart/socketclient.h
-CFLAGS += -DWITH_SOCKETS -Isocketuart -pthread
+OBJS += vera_uart.o uart/uartqueue.o uart/sockets/socketclient.o
+HEADERS += vera_uart.h uart/uartqueue.h  uart/sockets/socketclient.h
+CFLAGS += -DWITH_SOCKETS -Iuart -Iuart/sockets -pthread
 LDFLAGS += -pthread
 endif
 
