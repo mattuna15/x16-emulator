@@ -69,6 +69,15 @@
 		A19B6BA023BCFFB600797D89 /* InputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A19B6B9E23BCFFB600797D89 /* InputViewController.xib */; };
 		A1A7949B23BF8D7000D813EF /* GameControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A7949923BF8D7000D813EF /* GameControlViewController.m */; };
 		A1A7949C23BF8D7000D813EF /* GameControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1A7949A23BF8D7000D813EF /* GameControlViewController.xib */; };
+		A1AD64AB242C90770094433A /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1AD649D242C90770094433A /* CoreMIDI.framework */; };
+		A1AD64B2242C92D30094433A /* midi-osx-drv.c in Sources */ = {isa = PBXBuildFile; fileRef = A1AD64B1242C92D30094433A /* midi-osx-drv.c */; };
+		A1AD64B3242C92D30094433A /* midi-osx-drv.c in Sources */ = {isa = PBXBuildFile; fileRef = A1AD64B1242C92D30094433A /* midi-osx-drv.c */; };
+		A1AD64B9242C934F0094433A /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = A1AD64B8242C934F0094433A /* util.c */; };
+		A1AD64BA242C934F0094433A /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = A1AD64B8242C934F0094433A /* util.c */; };
+		A1AD64BD242CAE260094433A /* lib.c in Sources */ = {isa = PBXBuildFile; fileRef = A1AD64BB242CAE260094433A /* lib.c */; };
+		A1AD64BE242CAE260094433A /* lib.c in Sources */ = {isa = PBXBuildFile; fileRef = A1AD64BB242CAE260094433A /* lib.c */; };
+		A1AD64C1242CB3390094433A /* midi.c in Sources */ = {isa = PBXBuildFile; fileRef = A1AD64C0242CB3380094433A /* midi.c */; };
+		A1AD64C2242CB3390094433A /* midi.c in Sources */ = {isa = PBXBuildFile; fileRef = A1AD64C0242CB3380094433A /* midi.c */; };
 		A1BC234B242ABD8400F34D21 /* vera_uart.c in Sources */ = {isa = PBXBuildFile; fileRef = A1BC234A242ABD8400F34D21 /* vera_uart.c */; };
 		A1BC234C242ABD8400F34D21 /* vera_uart.c in Sources */ = {isa = PBXBuildFile; fileRef = A1BC234A242ABD8400F34D21 /* vera_uart.c */; };
 		A1C5FA6623BCC6C200897B0F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1C5FA6523BCC6C200897B0F /* AVFoundation.framework */; };
@@ -292,6 +301,17 @@
 		A1A7949823BF8D7000D813EF /* GameControlViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameControlViewController.h; sourceTree = "<group>"; };
 		A1A7949923BF8D7000D813EF /* GameControlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameControlViewController.m; sourceTree = "<group>"; };
 		A1A7949A23BF8D7000D813EF /* GameControlViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameControlViewController.xib; sourceTree = "<group>"; };
+		A1AD649D242C90770094433A /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreMIDI.framework; sourceTree = DEVELOPER_DIR; };
+		A1AD64AC242C907E0094433A /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreMIDI.framework; sourceTree = DEVELOPER_DIR; };
+		A1AD64B1242C92D30094433A /* midi-osx-drv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "midi-osx-drv.c"; sourceTree = "<group>"; };
+		A1AD64B4242C92E10094433A /* mididrv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mididrv.h; sourceTree = "<group>"; };
+		A1AD64B6242C93400094433A /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = types.h; path = "../../../../../../Downloads/vice-3.4/src/types.h"; sourceTree = "<group>"; };
+		A1AD64B7242C934E0094433A /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		A1AD64B8242C934F0094433A /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		A1AD64BB242CAE260094433A /* lib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lib.c; sourceTree = "<group>"; };
+		A1AD64BC242CAE260094433A /* lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lib.h; sourceTree = "<group>"; };
+		A1AD64BF242CB3380094433A /* midi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = midi.h; sourceTree = "<group>"; };
+		A1AD64C0242CB3380094433A /* midi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = midi.c; sourceTree = "<group>"; };
 		A1BC2349242ABD8400F34D21 /* vera_uart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vera_uart.h; path = ../vera_uart.h; sourceTree = "<group>"; };
 		A1BC234A242ABD8400F34D21 /* vera_uart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = vera_uart.c; path = ../vera_uart.c; sourceTree = "<group>"; };
 		A1C5FA6523BCC6C200897B0F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -386,6 +406,7 @@
 				A143C97923CF058B00B85C02 /* libSDL2.a in Frameworks */,
 				A143C99E23CF05D800B85C02 /* GameController.framework in Frameworks */,
 				A143C99D23CF05D800B85C02 /* ForceFeedback.framework in Frameworks */,
+				A1AD64AB242C90770094433A /* CoreMIDI.framework in Frameworks */,
 				A143C99F23CF05D800B85C02 /* IOKit.framework in Frameworks */,
 				A143C9A123CF05F500B85C02 /* Metal.framework in Frameworks */,
 				A143C99A23CF05D800B85C02 /* CoreFoundation.framework in Frameworks */,
@@ -532,6 +553,7 @@
 		A143C96923CF046C00B85C02 /* Mac */ = {
 			isa = PBXGroup;
 			children = (
+				A1AD64AC242C907E0094433A /* CoreMIDI.framework */,
 				A143C98A23CF059B00B85C02 /* AudioToolbox.framework */,
 				A143C99123CF059C00B85C02 /* Carbon.framework */,
 				A143C99323CF059C00B85C02 /* Cocoa.framework */,
@@ -573,6 +595,7 @@
 		A162BDD523C4ED7A00796247 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A1AD649D242C90770094433A /* CoreMIDI.framework */,
 				A143C9B623CF147800B85C02 /* iOS */,
 				A143C96923CF046C00B85C02 /* Mac */,
 			);
@@ -598,9 +621,34 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
+		A1AD64AF242C90C40094433A /* midi */ = {
+			isa = PBXGroup;
+			children = (
+				A1AD64C0242CB3380094433A /* midi.c */,
+				A1AD64BF242CB3380094433A /* midi.h */,
+				A1AD64B0242C92B20094433A /* driver */,
+			);
+			path = midi;
+			sourceTree = "<group>";
+		};
+		A1AD64B0242C92B20094433A /* driver */ = {
+			isa = PBXGroup;
+			children = (
+				A1AD64BB242CAE260094433A /* lib.c */,
+				A1AD64BC242CAE260094433A /* lib.h */,
+				A1AD64B8242C934F0094433A /* util.c */,
+				A1AD64B7242C934E0094433A /* util.h */,
+				A1AD64B6242C93400094433A /* types.h */,
+				A1AD64B4242C92E10094433A /* mididrv.h */,
+				A1AD64B1242C92D30094433A /* midi-osx-drv.c */,
+			);
+			path = driver;
+			sourceTree = "<group>";
+		};
 		A1C5FA6823BCC71300897B0F /* extern */ = {
 			isa = PBXGroup;
 			children = (
+				A1AD64AF242C90C40094433A /* midi */,
 				A1C5FA6923BCC71300897B0F /* include */,
 				A1C5FA6C23BCC71300897B0F /* src */,
 			);
@@ -890,17 +938,20 @@
 			files = (
 				A1CE2D9423D77C7000A9F12C /* serialclient.c in Sources */,
 				A1C5FACC23BCC78B00897B0F /* main.c in Sources */,
+				A1AD64B2242C92D30094433A /* midi-osx-drv.c in Sources */,
 				A1C5FABA23BCC71600897B0F /* debugger.c in Sources */,
 				A1C5FAAA23BCC71600897B0F /* vera_spi.c in Sources */,
 				A127A00823C5DA0500CA3665 /* JoystickController.swift in Sources */,
 				A1C5FAA923BCC71600897B0F /* ym2151.c in Sources */,
 				A1C5FAB223BCC71600897B0F /* fake6502.c in Sources */,
+				A1AD64B9242C934F0094433A /* util.c in Sources */,
 				A1C5FAB023BCC71600897B0F /* ps2.c in Sources */,
 				A1C5FAAC23BCC71600897B0F /* loadsave.c in Sources */,
 				A1A7949B23BF8D7000D813EF /* GameControlViewController.m in Sources */,
 				A1C5FAC423BCC71600897B0F /* memory.c in Sources */,
 				A1C5FAC823BCC71600897B0F /* keyboard.c in Sources */,
 				A1D2019823D098A7006CD799 /* socketclient.c in Sources */,
+				A1AD64C1242CB3390094433A /* midi.c in Sources */,
 				A1C5FAB923BCC71600897B0F /* via.c in Sources */,
 				A1D2019623D098A7006CD799 /* uartqueue.c in Sources */,
 				A19B6B9F23BCFFB600797D89 /* InputViewController.m in Sources */,
@@ -917,6 +968,7 @@
 				A1BC234B242ABD8400F34D21 /* vera_uart.c in Sources */,
 				A1C5FABB23BCC71600897B0F /* sdcard.c in Sources */,
 				A1C5FAC523BCC71600897B0F /* javascript_interface.c in Sources */,
+				A1AD64BD242CAE260094433A /* lib.c in Sources */,
 				A1C5FAAE23BCC71600897B0F /* joystick.c in Sources */,
 				A153A2D023C134BB000C9C1E /* ios_functions.m in Sources */,
 			);
@@ -926,15 +978,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1AD64C2242CB3390094433A /* midi.c in Sources */,
 				A143C9AC23CF064E00B85C02 /* ps2.c in Sources */,
 				A143C9A623CF064A00B85C02 /* ym2151.c in Sources */,
 				A1921F0C2428AC4400EA7747 /* icon.c in Sources */,
+				A1AD64BE242CAE260094433A /* lib.c in Sources */,
 				A143C9AD23CF064E00B85C02 /* rendertext.c in Sources */,
 				A143C9B023CF064E00B85C02 /* vera_spi.c in Sources */,
 				A143C9B423CF064E00B85C02 /* main.c in Sources */,
 				A143C9AA23CF064E00B85C02 /* loadsave.c in Sources */,
 				A1921F0E2428AC4400EA7747 /* audio.c in Sources */,
 				A1D2019923D098A7006CD799 /* socketclient.c in Sources */,
+				A1AD64BA242C934F0094433A /* util.c in Sources */,
 				A143C9AF23CF064E00B85C02 /* spi.c in Sources */,
 				A1CE2D9523D77C7000A9F12C /* serialclient.c in Sources */,
 				A143C9AB23CF064E00B85C02 /* memory.c in Sources */,
@@ -949,6 +1004,7 @@
 				A1D2019723D098A7006CD799 /* uartqueue.c in Sources */,
 				A143C9AE23CF064E00B85C02 /* sdcard.c in Sources */,
 				A143C9A523CF064700B85C02 /* disasm.c in Sources */,
+				A1AD64B3242C92D30094433A /* midi-osx-drv.c in Sources */,
 				A1BC234C242ABD8400F34D21 /* vera_uart.c in Sources */,
 				A143C9B323CF064E00B85C02 /* video.c in Sources */,
 				A143C9A723CF064E00B85C02 /* javascript_interface.c in Sources */,

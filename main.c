@@ -877,6 +877,7 @@ main(int argc, char **argv)
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER | SDL_INIT_AUDIO);
 
+	midi_init();
 	audio_init(audio_dev_name, audio_buffers);
 
 	memory_init();
@@ -1055,6 +1056,7 @@ emulator_loop(void *param)
 			vera_uart_step();
 			new_frame |= video_step(MHZ);
 		}
+		
 		audio_render(clocks);
 
 		instruction_counter++;

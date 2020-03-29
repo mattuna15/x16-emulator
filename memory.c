@@ -12,6 +12,7 @@
 #include "ym2151.h"
 #include "ps2.h"
 #include "vera_uart.h"
+#include "midi.h"
 
 uint8_t *RAM;
 
@@ -73,6 +74,15 @@ real_read6502(uint16_t address, bool debugOn, uint8_t bank)
 			return emu_read(address & 0xf, debugOn);
 		} else if (address == 0x9fc0) {
 			return vera_uart_read(address & 0xf);
+			//midi data
+		} else if (address == 0x9fc2) {
+			uint8_t in_byte = 0;
+			uint8_t *b = &in_byte;
+			midi_get_byte(b);
+			return in_byte;
+		} else if (address == 0x9fc4) { // read of status byte
+			int sts = midi_data_status;
+			return sts;
 		} else {
 			return 0;
 		}
@@ -115,6 +125,8 @@ write6502(uint16_t address, uint8_t value)
 			YM_write_reg(lastAudioAdr, value);
 		} else if (address == 0x9fc1) {
 			vera_uart_write(address & 0xf, value);
+		} else if (address == 0x9fc3) {
+			midi_put_byte(value);
 		} else {
 			// future expansion
 		}

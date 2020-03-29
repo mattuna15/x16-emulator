@@ -80,3 +80,4 @@ xcode/X16/CommanderX16.xcodeproj/project.xcworkspace/xcuserdata/mpe18.xcuserdata
 matt.p12
 *.PRG
 *.orig
+*.xcbkptlist

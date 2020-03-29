@@ -56,6 +56,10 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "-prg /Users/mpe18/Documents/code/x16-demo/cc65-audio/midi.prg"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-port 5000"
             isEnabled = "YES">
          </CommandLineArgument>
