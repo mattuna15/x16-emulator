@@ -2,6 +2,8 @@
 ** nc -l 9007 to communicate **
 ** Use GET# and PRINT# on device 2 for it to work **
 
+** Requires extended rom from https://github.com/mattuna15/x16-rom-1 **
+
 <p align="center">
   <img src="./.gh/logo.png" />
 </p>
