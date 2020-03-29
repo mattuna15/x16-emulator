@@ -8,7 +8,9 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <unistd.h>
+#include <SDL.h>
 #include "glue.h"
+
 #include "memory.h"
 #include "video.h"
 #include "rom_symbols.h"
@@ -51,7 +53,17 @@ create_directory_listing(uint8_t *data)
 	*data++ = 'C';
 	*data++ = 0;
 
-	if (!(dirp = opendir("."))) {
+	#if __APPLE__ && (TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE)
+	char filename[255];
+	//use correct file location for ios
+	strcpy(filename,getenv("HOME"));
+	//concatenating the path string returned from HOME
+	strcat(filename,"/Documents/.");
+	#else
+	const char *filename = ".";
+	#endif
+	
+	if (!(dirp = opendir(filename))) {
 		return 0;
 	}
 	while ((dp = readdir(dirp))) {
@@ -132,15 +144,27 @@ LOAD()
 		RAM[STATUS] = 0;
 		a = 0;
 	} else {
-		FILE *f = fopen(filename, "rb");
+		#if __APPLE__ && (TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE)
+		//use correct file location for ios
+		char full_filename[255];
+		//concatenating the path string returned from HOME
+		strcpy(full_filename, getenv("HOME"));
+		strcat(full_filename, "/Documents/");
+		strcat(full_filename, filename);
+		#else
+		char *full_filename = filename;
+		#endif
+
+		SDL_RWops *f = SDL_RWFromFile(full_filename, "rb");
 		if (!f) {
 			a = 4; // FNF
 			RAM[STATUS] = a;
 			status |= 1;
 			return;
 		}
-		uint8_t start_lo = fgetc(f);
-		uint8_t start_hi = fgetc(f);
+		uint8_t start_lo = SDL_ReadU8(f);
+		uint8_t start_hi = SDL_ReadU8(f);
+
 		uint16_t start;
 		if (!RAM[SA]) {
 			start = override_start;
@@ -156,7 +180,7 @@ LOAD()
 			video_write(2, ((a - 2) & 0xf) | 0x10);
 			uint8_t buf[2048];
 			while(1) {
-				size_t n = fread(buf, 1, sizeof buf, f);
+				size_t n = SDL_RWread(f, buf, 1, sizeof buf);
 				if(n == 0) break;
 				for(size_t i = 0; i < n; i++) {
 					video_write(3, buf[i]);
@@ -165,14 +189,14 @@ LOAD()
 			}
 		} else if(start < 0x9f00) {
 			// Fixed RAM
-			bytes_read = fread(RAM + start, 1, 0x9f00 - start, f);
+			bytes_read = SDL_RWread(f, RAM + start, 1, 0x9f00 - start);
 		} else if(start < 0xa000) {
 			// IO addresses
 		} else if(start < 0xc000) {
 			// banked RAM
 			while(1) {
 				size_t len = 0xc000 - start;
-				bytes_read = fread(RAM + ((uint16_t)memory_get_ram_bank() << 13) + start, 1, len, f);
+				bytes_read = SDL_RWread(f, RAM + ((uint16_t)memory_get_ram_bank() << 13) + start, 1, len);
 				if(bytes_read < len) break;
 
 				// Wrap into the next bank
@@ -183,7 +207,7 @@ LOAD()
 			// ROM
 		}
 
-		fclose(f);
+		SDL_RWclose(f);
 
 		uint16_t end = start + bytes_read;
 		x = end & 0xff;
@@ -209,8 +233,19 @@ SAVE()
 		a = 0;
 		return;
 	}
+	//use correct file location for ios
+	#if __APPLE__ && (TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE)
+	//use correct file location for ios
+	char full_filename[255];
+	//concatenating the path string returned from HOME
+	strcpy(full_filename, getenv("HOME"));
+	strcat(full_filename, "/Documents/");
+	strcat(full_filename, filename);
+	#else
+	char *full_filename = filename;
+	#endif
 
-	FILE *f = fopen(filename, "wb");
+	SDL_RWops *f = SDL_RWFromFile(full_filename, "wb");
 	if (!f) {
 		a = 4; // FNF
 		RAM[STATUS] = a;
@@ -218,11 +253,11 @@ SAVE()
 		return;
 	}
 
-	fputc(start & 0xff, f);
-	fputc(start >> 8, f);
+	SDL_WriteU8(f, start & 0xff);
+	SDL_WriteU8(f, start >> 8);
 
-	fwrite(RAM + start, 1, end - start, f);
-	fclose(f);
+	SDL_RWwrite(f, RAM + start, 1, end - start);
+	SDL_RWclose(f);
 
 	status &= 0xfe;
 	RAM[STATUS] = 0;

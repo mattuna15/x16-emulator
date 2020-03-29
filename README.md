@@ -1,3 +1,7 @@
+** PROVIDES A SOCKET INTERFACE ON PORT 9007 FOR SEND AND RECEIVE **
+** nc -l 9007 to communicate **
+** Use GET# and PRINT# on device 2 for it to work **
+
 <p align="center">
   <img src="./.gh/logo.png" />
 </p>
@@ -25,6 +29,14 @@ You can build a ROM image yourself using the [build instructions][x16rom-build] 
 
 Install SDL2 using `brew install sdl2`.
 
+### iPad Build
+
+Using Xcode open the project file in the emulator Xcode directory.
+A copy of the framework source required is included as a zip file (Frameworks.zip).
+Extract it in place before building.
+
+Choose your device or simulator and press run.
+
 ### Linux Build
 
 The SDL2 development package is available as a distribution package with most major versions of Linux:
@@ -47,7 +59,6 @@ You can start `x16emu`/`x16emu.exe` either by double-clicking it, or from the co
 * The system ROM filename/path can be overridden with the `-rom` command line argument.
 * `-keymap` tells the KERNAL to switch to a specific keyboard layout. Use it without an argument to view the supported layouts.
 * `-sdcard` lets you specify an SD card image (partition table + FAT32).
-* `-uart-in` and `-uart-out` lets you specify files for RS232 input and output
 * `-prg` lets you specify a `.prg` file that gets injected into RAM after start.
 * `-bas` lets you specify a BASIC program in ASCII format that automatically typed in (and tokenized).
 * `-run` executes the application specified through `-prg` or `-bas` using `RUN` or `SYS`, depending on the load address.
@@ -69,8 +80,11 @@ You can start `x16emu`/`x16emu.exe` either by double-clicking it, or from the co
 	* `R`: RAM (40 KiB)
 	* `B`: Banked RAM (2 MiB)
 	* `V`: Video RAM and registers (128 KiB VRAM, 32 B composer registers, 512 B pallete, 16 B layer0 registers, 16 B layer1 registers, 16 B sprite registers, 2 KiB sprite attributes)
-* When compiled with `WITH_YM2151`, `-sound` can be used to specify the output sound device.
+* `-sound` can be used to specify the output sound device.
+* `-abufs` can be used to specify the number of audio buffers (defaults to 8). If you're experiencing stuttering in the audio try to increase this number. This will result in additional audio latency though.
 * When compiled with `#define TRACE`, `-trace` will enable an instruction trace on stdout.
+* When compiled with `WITH_SOCKETS`, `-ipaddress` can be used to specify an ip address to connect UART to and
+`-port` can be used to specify a port number to connect UART to. The socket is accessed as Device #2 within the emulator which must be started after the host service has started.
 
 Run `x16emu -h` to see all command line options.
 
@@ -162,7 +176,6 @@ The emulator will interpret filenames relative to the directory it was started i
 
 To avoid incompatibility problems between the PETSCII and ASCII encodings, use lower case filenames on the host side, and unshifted filenames on the X16 side.
 
-
 Dealing with BASIC Programs
 ---------------------------
 
@@ -211,6 +224,29 @@ When `-debug` is selected the No-Operation $FF will break into the debugger auto
 
 Effectively keyboard routines only work when the debugger is running normally. Single stepping through keyboard code will not work at present.
 
+iPad
+----
+
+
+### Release 0.1
+
+* Files are saved in the $HOME/Documents folder
+* On-screen joystick and external Gamecontrollers can be accessed by using a Long Press on the main window and pressing the appropriate button
+* Function keys, a reset button and "ESC" button are available on the on-sceen keyboard
+* To run PRG files:
+        1. Browse to the file in the "File App"
+        2. Select any BIN files you need and open them with the X16 app
+        3. Select the PRG file you wish to run.
+        4. The emulator will open and load the PRG
+        5. "RUN" will be displayed when it has loaded and is ready to go. Press ENTER at this point
+* BASIC Code can be pasted by tapping the "Paste" Icon on the software keyboard
+* Sound is now supported by default
+
+TODO:
+* BAS files are not yet able to be loaded from the Files app
+* Mouse support
+* Improve and optimise UI
+* Implement command line parameters in UI such as uart and debugging tools
 
 Wiki
 ----
@@ -236,7 +272,10 @@ Features
 	* mouse
 	* gamepad
 	* SD card (SPI)
-
+* Sound
+    * PCM
+    * PSG
+    * YM2151
 
 Missing Features
 ----------------
@@ -248,7 +287,7 @@ Missing Features
 * VIA
 	* Does not support counters/timers/IRQs
 * Sound
-	* No support
+	* No SAA support
 
 
 License
@@ -266,6 +305,18 @@ Known Issues
 
 Release Notes
 -------------
+
+### Release 37 ("Geneva")
+
+* VERA 0.9 register layout [Frank van den Hoef]
+* audio [Frank van den Hoef]
+    * VERA PCM and PSG audio support
+    * YM2151 support is now enabled by default
+    * added `-abufs` to specify number of audio buffers
+* removed UART [Frank van den Hoef]
+* added window icon [Nigel Stewart]
+* fixed access to paths with non-ASCII characters on Windows [Serentty]
+* SDL HiDPI hint to fix mouse scaling [Edward Kmett]
 
 ### Release 36 ("Berlin")
 

@@ -1,3 +1,4 @@
+WITH_SOCKETS=1
 
 # the mingw32 path on macOS installed through homebrew
 MINGW32=/usr/local/Cellar/mingw-w64/6.0.0_2/toolchain-i686/i686-w64-mingw32
@@ -10,8 +11,13 @@ else
 	SDL2CONFIG=sdl2-config
 endif
 
-CFLAGS=-std=c99 -O3 -Wall -Werror -g $(shell $(SDL2CONFIG) --cflags) -Iextern/include -Iextern/src
+CFLAGS=-std=c99 -O3 -Wall -Werror -g $(shell $(SDL2CONFIG) --cflags) -Iextern/include -Iextern/src 
 LDFLAGS=$(shell $(SDL2CONFIG) --libs) -lm
+
+
+ifdef TRACE
+	CFLAGS+=-D TRACE
+endif
 
 OUTPUT=x16emu
 
@@ -22,7 +28,7 @@ endif
 ifeq ($(CROSS_COMPILE_WINDOWS),1)
 	LDFLAGS+=-L$(MINGW32)/lib
 	# this enables printf() to show, but also forces a console window
-	LDFLAGS+=-Wl,--subsystem,console
+	LDFLAGS+=-Wl,--subsystem,console,-lws2_32
 	CC=i686-w64-mingw32-gcc
 endif
 
@@ -34,20 +40,29 @@ ifdef EMSCRIPTEN
 	OUTPUT=x16emu.html
 endif
 
-OBJS = cpu/fake6502.o memory.o disasm.o video.o ps2.o via.o loadsave.o spi.o vera_uart.o vera_spi.o sdcard.o main.o debugger.o javascript_interface.o joystick.o rendertext.o keyboard.o
+OBJS = cpu/fake6502.o memory.o disasm.o video.o ps2.o via.o loadsave.o spi.o vera_spi.o audio.o vera_pcm.o vera_psg.o sdcard.o main.o debugger.o javascript_interface.o joystick.o rendertext.o keyboard.o icon.o
 
-HEADERS = disasm.h cpu/fake6502.h glue.h memory.h video.h ps2.h via.h loadsave.h joystick.h keyboard.h
+HEADERS = disasm.h cpu/fake6502.h glue.h memory.h video.h audio.h vera_pcm.h vera_psg.h ps2.h via.h loadsave.h joystick.h keyboard.h
 
-ifeq ($(WITH_YM2151),1)
 OBJS += extern/src/ym2151.o
 HEADERS += extern/src/ym2151.h
-CFLAGS += -DWITH_YM2151
+
+ifeq ($(WITH_SOCKETS),1)
+OBJS += vera_uart.o uart/uartqueue.o uart/sockets/socketclient.o
+HEADERS += vera_uart.h uart/uartqueue.h  uart/sockets/socketclient.h
+CFLAGS += -DWITH_SOCKETS -Iuart -Iuart/sockets -pthread
+LDFLAGS += -pthread
 endif
 
 ifneq ("$(wildcard ./rom_labels.h)","")
 HEADERS+=rom_labels.h
 endif
 
+ifeq ($(WITH_SOCKETS),1)
+ifdef EMSCRIPTEN
+$(error Sockets not supported on web client)
+endif
+endif
 
 all: $(OBJS) $(HEADERS)
 	$(CC) -o $(OUTPUT) $(OBJS) $(LDFLAGS)
@@ -56,7 +71,6 @@ all: $(OBJS) $(HEADERS)
 
 cpu/tables.h cpu/mnemonics.h: cpu/buildtables.py cpu/6502.opcodes cpu/65c02.opcodes
 	cd cpu && python buildtables.py
-
 
 # WebASssembly/emscripten target
 #
@@ -92,8 +106,14 @@ TMPDIR_NAME=TMP-x16emu-package
 
 define add_extra_files_to_package
 	# ROMs
-	cp ../x16-rom/rom.bin $(TMPDIR_NAME)
-	cp ../x16-rom/rom.txt $(TMPDIR_NAME)/rom.sym
+	cp ../x16-rom/build/x16/rom.bin $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/kernal.sym  $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/keymap.sym  $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/cbdos.sym   $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/geos.sym    $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/basic.sym   $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/monitor.sym $(TMPDIR_NAME)
+	cp ../x16-rom/build/x16/charset.sym $(TMPDIR_NAME)
 
 	# Documentation
 	mkdir $(TMPDIR_NAME)/docs
@@ -141,4 +161,4 @@ package_linux:
 	rm -rf $(TMPDIR_NAME)
 
 clean:
-	rm -f *.o cpu/*.o extern/src/*.o x16emu x16emu.exe x16emu.js x16emu.wasm x16emu.data x16emu.worker.js x16emu.html x16emu.html.mem
+	rm -f *.o cpu/*.o extern/src/*.o socketuart/*.o x16emu x16emu.exe x16emu.js x16emu.wasm x16emu.data x16emu.worker.js x16emu.html x16emu.html.mem

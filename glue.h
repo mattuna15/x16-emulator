@@ -58,9 +58,19 @@ extern gif_recorder_state_t record_gif;
 extern char *gif_path;
 extern uint8_t keymap;
 
-extern void machine_dump();
-extern void machine_reset();
-extern void machine_paste();
-extern void init_audio();
+#ifdef WITH_SOCKETS
+extern char *ip_address;
+extern int port;
+#endif
+
+#ifdef WITH_SERIAL
+extern char *serial_device;
+#endif
+
+extern void machine_dump(void);
+extern void machine_reset(void);
+extern void machine_paste(char *s);
+extern void init_audio(void);
+extern void vera_uart_step(void);
 
 #endif

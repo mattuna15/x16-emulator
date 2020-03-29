@@ -7,6 +7,10 @@
 #include <string.h>
 #include "glue.h"
 
+#ifdef WITH_YM2151
+void init_audio(void);
+#endif
+
 char javascript_text_data[65536];
 
 void
@@ -28,7 +32,7 @@ j2c_start_audio()
 {
 
 #ifdef WITH_YM2151
-	init_audio();
+	//init_audio();
 #endif
 
 }
