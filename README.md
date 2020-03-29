@@ -6,9 +6,11 @@
 
 ** INCLUDES ACCESS TO MIDI ** WIP OSX ONLY at the moment. **
 
-MIDI BYTE IN = $9FC2
-MIDI BYTE OUT = $9FC3
-STATUS BYTE = $9FC4
+MIDI BYTE IN = $9FC2<BR>
+MIDI BYTE OUT = $9FC3<BR>
+STATUS BYTE = $9FC4<BR>
+
+Demo: https://github.com/mattuna15/x16-emulator/blob/midi-expansion/midi-demo.bas
 
 <p align="center">
   <img src="./.gh/logo.png" />
