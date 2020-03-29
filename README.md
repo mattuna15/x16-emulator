@@ -1,5 +1,5 @@
-** PROVIDES A SOCKET INTERFACE ON PORT 9007 FOR SEND AND RECEIVE **
-** nc -l 9007 to communicate **
+** PROVIDES A SOCKET INTERFACE ON SELECTED PORT 9007 FOR SEND AND RECEIVE **
+
 ** Use GET# and PRINT# on device 2 for it to work **
 
 ** Requires extended rom from https://github.com/mattuna15/x16-rom-1 **
