@@ -12,6 +12,8 @@ STATUS BYTE = $9FC4<BR>
 
 Demo: https://github.com/mattuna15/x16-emulator/blob/midi-expansion/midi-demo.bas
 
+Thanks to Barry Yost, MASL123 and the VICE Project.
+
 <p align="center">
   <img src="./.gh/logo.png" />
 </p>
