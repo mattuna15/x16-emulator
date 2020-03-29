@@ -1,8 +1,14 @@
-** PROVIDES A SOCKET INTERFACE ON SELECTED PORT 9007 FOR SEND AND RECEIVE **
+** PROVIDES A SOCKET INTERFACE ON SELECTED PORT FOR SEND AND RECEIVE **
 
 ** Use GET# and PRINT# on device 2 for it to work **
 
 ** Requires extended rom from https://github.com/mattuna15/x16-rom-1 **
+
+** INCLUDES ACCESS TO MIDI ** WIP OSX ONLY at the moment. **
+
+MIDI BYTE IN = $9FC2
+MIDI BYTE OUT = $9FC3
+STATUS BYTE = $9FC4
 
 <p align="center">
   <img src="./.gh/logo.png" />
